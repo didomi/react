@@ -1,6 +1,6 @@
 {
   "name": "didomi-react-test",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "didomi-react-test React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -24,6 +24,7 @@
     "react": "16.x"
   },
   "devDependencies": {
+    "envsub": "^3.1.0",
     "nwb": "0.23.x",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
