@@ -3,7 +3,9 @@ import { render } from 'react-dom'
 
 import { DidomiSDK } from '../../src'
 
-
+/**
+ * This is the configuration object that will set the Didomi SDK
+ */
 const didomiConfig = {  
   website: {
     name: 'Didomi',

@@ -5,10 +5,10 @@
 [![Coveralls][coveralls-badge]][coveralls]
 
 [npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+[npm]: https://www.npmjs.com/package/didomi-react
 
 [coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+[coveralls]: https://coveralls.io/github/didomi/didomi-react
 
 [![Didomi](https://www.didomi.io/static/assets/logo.png)](https://didomi.io)
 
@@ -244,7 +244,7 @@ This is the structure of the configuration object. For more information, please 
 ```jsx
 import React, { Component } from 'react'
 
-import { DidomiSDK } from '../../src'
+import { DidomiSDK } from 'didomi-react'
 
 
 const didomiConfig = {  
