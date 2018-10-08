@@ -10,12 +10,12 @@ Didomi React is a React component which creates a layer on top of our SDK.
 1. Install the library using npm.
 
 ```sh
-$ npm install --save didomi-react
+$ npm install --save @didomi/react
 ```
 2. Import the module in your app.
 
 ```js
-import { DidomiSDK } from 'didomi-react';
+import { DidomiSDK } from '@didomi/react';
   ```
    
 Please note that the sooner you instanciate the component, the faster the banner will be displayed or the faster the consents will be shared with your partners and the ads displayed.
@@ -233,7 +233,7 @@ This is the structure of the configuration object. For more information, please 
 ```jsx
 import React, { Component } from 'react'
 
-import { DidomiSDK } from 'didomi-react'
+import { DidomiSDK } from '@didomi/react'
 
 /**
  * This is the configuration object that will set the Didomi SDK
