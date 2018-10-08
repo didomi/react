@@ -1,11 +1,6 @@
 
 # Didomi React
 
-[![npm package][npm-badge]][npm]
-
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.com/package/didomi-react
-
 [![Didomi](https://www.didomi.io/static/assets/logo.png)](https://didomi.io)
 
 Didomi React is a React component which creates a layer on top of our SDK.
