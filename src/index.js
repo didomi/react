@@ -55,7 +55,7 @@ class DidomiSDK extends Component {
   init() {
     window.gdprAppliesGlobally=true;(function(){function a(){if(!window.frames.__cmpLocator){if(document.body&&document.body.firstChild){var e=document.body;var n=document.createElement("iframe");n.style.display="none";n.name="__cmpLocator";e.insertBefore(n,e.firstChild)}else{setTimeout(a,5)}}}function e(e,n,a){if(typeof a!=="function"){return}if(!window.__cmpBuffer){window.__cmpBuffer=[]}if(e==="ping"){a({gdprAppliesGlobally:window.gdprAppliesGlobally,cmpLoaded:false},true)}else{window.__cmpBuffer.push({command:e,parameter:n,callback:a})}}e.stub=true;function n(t){if(!window.__cmp||window.__cmp.stub!==true){return}if(!t.data){return}var i=typeof t.data==="string";var e=i?JSON.parse(t.data):t.data;if(e.__cmpCall){var o=e.__cmpCall;window.__cmp(o.command,o.parameter,function(e,n){var a={__cmpReturn:{returnValue:e,success:n,callId:o.callId}};t.source.postMessage(i?JSON.stringify(a):a,"*")})}}if(typeof window.__cmp!=="function"){window.__cmp=e;if(window.addEventListener){window.addEventListener("message",n,false)}else{window.attachEvent("onmessage",n)}}a()})();
 
-    window.didomiConfig = this.props.config;
+    window.didomiConfig = this.props.config || {};
 
     const script = document.createElement("script");
     // script.src = process.env.__REACT_APP_LOADER_URL__;
