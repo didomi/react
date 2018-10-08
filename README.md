@@ -103,7 +103,7 @@ This is the structure of the configuration object. For more information, please 
     apiKey: '<Your API key>',
     logoUrl: 'http://logo.png',
     vendors: {
-      iab: { // You either choose the option 'all', with optionally 'exclude', or the 'include' option where you add the vendors manually
+      iab: { // You either choose the option 'all', with optionaly 'exclude', or the 'include' option where you add the vendors manually
         all: true,
         exclude: [1],
         // OR
