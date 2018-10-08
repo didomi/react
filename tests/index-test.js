@@ -9,4 +9,5 @@ describe('DidomiSDK', () => {
     expect(render(<DidomiSDK/>))
       .toContain('')
   })
+
 })

@@ -2,13 +2,9 @@
 # Didomi React
 
 [![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
 
 [npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
 [npm]: https://www.npmjs.com/package/didomi-react
-
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/didomi/didomi-react
 
 [![Didomi](https://www.didomi.io/static/assets/logo.png)](https://didomi.io)
 
@@ -75,7 +71,7 @@ const didomiConfig = {
       <td>onReady</td>
       <td>function</td>
       <td></td>
-      <td>Called when the SDK is loaded. Pass the Didomi object as parameter. Please see the [documentation](https://developers.didomi.io/cmp/web-sdk/reference) for more information about what you can do with the Didomi object</td>
+      <td>Called when the SDK is loaded. Pass the Didomi object as parameter. Please see the https://developers.didomi.io/cmp/web-sdk/reference for more information about what you can do with the Didomi object</td>
     </tr>
     <tr>
       <td>onConsentChanged</td>
@@ -106,17 +102,16 @@ This is the structure of the configuration object. For more information, please 
 ```js
 {
   website: {
-    ignoreCountry: true, // boolean
-    privacyPolicyURL: 'http://example.com', // string
-    name: 'Example', // string
-    cookieDomain: '' // string DEPRECATED
-    apiKey: '<Your API key>', // string
-    providerKey: '', // string USED?
-    logoUrl: 'http://logo.png', // string
+    ignoreCountry: true,
+    privacyPolicyURL: 'http://example.com',
+    name: 'Example',
+    apiKey: '<Your API key>',
+    logoUrl: 'http://logo.png',
     vendors: {
-      iab: {
-        all: true, // boolean
+      iab: { // You either choose the option 'all', with optionally 'exclude', or the 'include' option where you add the vendors manually
+        all: true,
         exclude: [1],
+        // OR
         include: [3],
       },
       didomi: ['google'],
@@ -140,10 +135,9 @@ This is the structure of the configuration object. For more information, please 
         }
       }
     ]
-    purposes: [] // DEPRECATED ?
   },
   languages: {
-    enabled: ['en', 'fr', 'es', 'nl', 'ca', 'it', 'de', 'pt'], // List of languages that visitors can use (should be a subset of en/fr/es/nl/ca/it/de/pt)
+    enabled: ['en', 'fr', 'es', 'nl', 'ca', 'it', 'de', 'pt'], // List of languages that visitors can use
     default: 'fr', // Default language to use if the visitor uses a language that is not enabled
   },
   notice: {
@@ -246,7 +240,9 @@ import React, { Component } from 'react'
 
 import { DidomiSDK } from 'didomi-react'
 
-
+/**
+ * This is the configuration object that will set the Didomi SDK
+ */
 const didomiConfig = {  
   website: {
     name: 'Didomi',
@@ -274,6 +270,9 @@ class DidomiDemo extends Component {
     this.didomiObject = {};
   }
 
+  /**
+   * Called once we have the callback from the SDK informing that Didoni is loaded and ready
+   */
   onDidomiReady(didomi) {
     this.didomiObject = didomi;
 
@@ -283,6 +282,9 @@ class DidomiDemo extends Component {
 
   }
 
+  /**
+   * Called everytime the consent changes
+   */
   consentHasChanged(cwtToken) {
     console.log('Didomi Consent Changed - cwtToken : ', cwtToken);
     console.log('Didomi Consent Changed - Is the consent required ? : ', this.didomiObject.isConsentRequired());

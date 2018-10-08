@@ -33,6 +33,9 @@ class DidomiDemo extends Component {
     this.didomiObject = {};
   }
 
+  /**
+   * Called once we have the callback from the SDK informing that Didoni is loaded and ready
+   */
   onDidomiReady(didomi) {
     this.didomiObject = didomi;
 
@@ -42,6 +45,9 @@ class DidomiDemo extends Component {
 
   }
 
+  /**
+   * Called everytime the consent changes
+   */
   consentHasChanged(cwtToken) {
     console.log('Didomi Consent Changed - cwtToken : ', cwtToken);
     console.log('Didomi Consent Changed - Is the consent required ? : ', this.didomiObject.isConsentRequired());
