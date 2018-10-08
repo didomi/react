@@ -1,6 +1,6 @@
 {
   "name": "didomi-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "didomi-react-test React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,11 +29,17 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   },
-  "author": "",
-  "homepage": "",
+  "author": "Didomi",
+  "homepage": "https://www.didomi.io/fr/",
   "license": "MIT",
-  "repository": "",
   "keywords": [
-    "react-component"
-  ]
+    "didomi",
+    "sdk",
+    "dgpr",
+    "react"
+  ],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/didomi/react"
+  }
 }
