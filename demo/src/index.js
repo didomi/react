@@ -60,6 +60,7 @@ class DidomiDemo extends Component {
       <h1>Didomi React Demo</h1>
       <DidomiSDK
         config={didomiConfig}
+        gdprAppliesGlobally={false}
         onReady={this.onDidomiReady.bind(this)}
         onConsentChanged={this.consentHasChanged.bind(this)}
       />

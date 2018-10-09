@@ -36,6 +36,7 @@ const didomiConfig = {
     
 <DidomiSDK
   config={didomiConfig}
+  gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -61,6 +62,13 @@ const didomiConfig = {
       <td>object</td>
       <td>{}</td>
       <td>Configuration of the SDK, please go below to see the configuration object structure</td>
+    </tr>
+    <tr>
+      <td>gdprAppliesGlobally</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>The banner should display to all users no matter where they are located. If you are a non EU-based company then you are only required to collect consent and show the banner to EU visitors and can configure the banner to do so by changing the  gdprAppliesGlobally variable to false in the tag above (that variable is separate from the window.didomiConfig variable).<br>
+      Please note that if you are an EU-based company then you must collect consent and display the banner to all visitors, no matter where they are from.</td>
     </tr>
     <tr>
       <td>onReady</td>
@@ -292,6 +300,7 @@ class DidomiDemo extends Component {
       <h1>Didomi React Demo</h1>
       <DidomiSDK
         config={didomiConfig}
+        gdprAppliesGlobally={true}
         onReady={this.onDidomiReady.bind(this)}
         onConsentChanged={this.consentHasChanged.bind(this)}
       />
