@@ -40,13 +40,13 @@ class DidomiSDK extends Component {
 
     if(this.props.onNoticeShown) {
       Didomi.on('notice.shown', e => {
-        this.props.onNoticeShown('test changed')
+        this.props.onNoticeShown()
       })
     }
 
     if(this.props.onNoticeHidden) {
       Didomi.on('notice.hidden', e => {
-        this.props.onNoticeHidden('test changed')
+        this.props.onNoticeHidden()
       })
     }
   }
