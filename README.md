@@ -146,6 +146,7 @@ This is the structure of the configuration object. For more information, please 
   notice: {
     position: 'popup',
     closeOnClick: true,
+    daysBeforeShowingAgain: 0,
     content: {
       popup: {
         en: 'Text',
