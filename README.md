@@ -206,7 +206,7 @@ This is the structure of the configuration object. For more information, please 
   },
   theme: {
     color: '#3F51B5', // Principal color used by the SDK
-    linkColor: '#3F51B5', // Color used for the links
+    linkColor: '#3F51B5', // Color used for the links in the notice/popup
     font: 'Arial', // Font used by the SDK
     buttons: {
       regularButtons: { // Learn more/disagree/disagree to all buttons.
