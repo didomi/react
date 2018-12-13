@@ -147,6 +147,8 @@ This is the structure of the configuration object. For more information, please 
     position: 'popup',
     closeOnClick: true,
     daysBeforeShowingAgain: 0,
+    textAlignment: 'left',
+    learnMorePosition: null,
     content: {
       popup: {
         en: 'Text',
@@ -204,6 +206,7 @@ This is the structure of the configuration object. For more information, please 
   },
   theme: {
     color: '#3F51B5', // Principal color used by the SDK
+    linkColor: '#3F51B5', // Color used for the links
     font: 'Arial', // Font used by the SDK
     buttons: {
       regularButtons: { // Learn more/disagree/disagree to all buttons.
