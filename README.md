@@ -41,6 +41,7 @@ const didomiConfig = {
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
   onNoticeHidden={() => console.log('Didomi Notice Hidden')}
+  onNoticeBackdropclick={() => console.log('Didomi Notice Backdrop Click')}
 />
   ```
 
@@ -94,6 +95,13 @@ const didomiConfig = {
       <td></td>
       <td>Called when the notice is hidden</td>
     </tr>
+    </tr>
+        <tr>
+      <td>onNoticeBackdropclick</td>
+      <td>function</td>
+      <td></td>
+      <td>Called when the backdrop from the popup notice is clicked</td>
+    </tr>
   </tbody>
 </table>
 
@@ -146,6 +154,7 @@ This is the structure of the configuration object. For more information, please 
   notice: {
     position: 'popup',
     closeOnClick: true,
+    closeOnClickBackdrop: false,
     daysBeforeShowingAgain: 0,
     textAlignment: 'left',
     learnMorePosition: null,

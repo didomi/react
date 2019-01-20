@@ -8,7 +8,8 @@ class DidomiSDK extends Component {
     gdprAppliesGlobally: PropTypes.bool,
     onConsentChanged: PropTypes.func,
     onNoticeShown: PropTypes.func,
-    onNoticeHidden: PropTypes.func
+    onNoticeHidden: PropTypes.func,
+    onNoticeBackdropclick: PropTypes.func
   }
   static defaultProps = {
     config: {},
@@ -16,6 +17,7 @@ class DidomiSDK extends Component {
     onConsentChanged: () => {},
     onNoticeShown: () => {},
     onNoticeHidden: () => {},
+    onNoticeBackdropclick: () => {}
   }
 
   /**
@@ -47,6 +49,12 @@ class DidomiSDK extends Component {
     if(this.props.onNoticeHidden) {
       Didomi.on('notice.hidden', e => {
         this.props.onNoticeHidden()
+      })
+    }
+
+    if(this.props.onNoticeBackdropclick) {
+      Didomi.on('notice.backdropclick', e => {
+        this.props.onNoticeBackdropclick()
       })
     }
   }
