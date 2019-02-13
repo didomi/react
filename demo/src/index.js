@@ -3,26 +3,19 @@ import { render } from 'react-dom'
 
 import { DidomiSDK } from '../../src'
 
-/**
- * This is the configuration object that will set the Didomi SDK
- */
-const didomiConfig = {  
-  website: {
-    name: 'Didomi',
-    apiKey: 'API_KEY',
-    vendors: {
-      iab: {
-        all: true
-      }
-    }
-  },
-  notice: {
-    position: 'bottom'
-  },
-  languages: {
-    enabled: ['fr', 'en', 'es'],
-    default: 'fr'
+class NoticeHTML extends Component {
+  render() {
+    return (
+      <div>Test de HTML</div>
+    )
   }
+}
+
+
+const NoticeHTMLFunc = () => {
+  return (
+    <div>Test de HTML Func</div>
+  )
 }
 
 
@@ -31,6 +24,39 @@ class DidomiDemo extends Component {
   constructor(props) {
     super(props);
     this.didomiObject = {};
+
+    /**
+     * This is the configuration object that will set the Didomi SDK
+     */
+    this.didomiConfig = {  
+      website: {
+        name: 'Didomi',
+        apiKey: 'API_KEY',
+        vendors: {
+          iab: {
+            all: true
+          }
+        }
+      },
+      notice: {
+        position: 'bottom',
+        content: {
+          notice: {
+            fr: (<NoticeHTML />),
+            en: (<NoticeHTMLFunc />)
+          },
+          dismiss: {
+              en: 'I agree',
+              fr: 'J\'accepte Custom'
+          },
+        }
+      },
+      languages: {
+        enabled: ['fr', 'en', 'es'],
+        default: 'fr'
+      }
+    }
+
   }
 
   /**
@@ -56,10 +82,12 @@ class DidomiDemo extends Component {
   }
 
   render() {
+
+
     return <div>
       <h1>Didomi React Demo</h1>
       <DidomiSDK
-        config={didomiConfig}
+        config={this.didomiConfig}
         gdprAppliesGlobally={true}
         onReady={this.onDidomiReady.bind(this)}
         onConsentChanged={this.consentHasChanged.bind(this)}
