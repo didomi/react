@@ -4,9 +4,30 @@ import { render } from 'react-dom'
 import { DidomiSDK } from '../../src'
 
 class NoticeHTML extends Component {
+  accept() {
+    // This is not working, event handlers are not working
+    // console.log('accept', this.props.didomi.isConsentRequired())
+    console.log('accept')
+    Didomi.preferences.show();
+  }
+
   render() {
+    const noticeStyle = {
+      color: 'red'
+    }
+
+    console.log('render', Didomi)
+
+    //href="javascript: Didomi.preferences.show();"
+
     return (
-      <div>Test de HTML</div>
+      <div style={noticeStyle}>
+        <span>Test de HTML <a onClick={this.accept.bind(this)}>Accept</a></span>
+        {
+          this.props.shouldDisplayMoreText &&
+          <p>More Text</p>
+        }
+      </div>
     )
   }
 }
@@ -25,6 +46,8 @@ class DidomiDemo extends Component {
     super(props);
     this.didomiObject = {};
 
+    window.didomiCountry = 'FR';
+
     /**
      * This is the configuration object that will set the Didomi SDK
      */
@@ -39,11 +62,16 @@ class DidomiDemo extends Component {
         }
       },
       notice: {
-        position: 'bottom',
+        position: 'popup',
         content: {
-          notice: {
-            fr: (<NoticeHTML />),
-            en: (<NoticeHTMLFunc />)
+          html: {
+            fr: element => {
+              render(<NoticeHTML shouldDisplayMoreText={false} />, element);
+            },
+            // en: element => {
+            //   render(<NoticeHTMLFunc />, element);
+            // },
+            en: "TEST STRING"
           },
           dismiss: {
               en: 'I agree',
