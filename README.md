@@ -332,6 +332,8 @@ You can use your own custom notice to replace the standard Didomi SDK notices (b
 
 Set your HTML in the `notice.content.html` key:
 
+##### Custom HTML in the notice
+
 You can do everything through HTML:
 
   ```js
@@ -346,19 +348,23 @@ You can do everything through HTML:
       }
     }
   }
-};
+}
 
 ...
 
 <DidomiSDK config={didomiConfig}/>
   ```
 
-But if you want to keep all the advantages of React, you can call our callback function that returns the notice element and render your own React component inside:
+##### Custom React component in the notice
+
+If you want to keep all the advantages of React, you can call our callback function that returns the notice element and render your own React component inside:
 
   ```jsx
+import { render } from 'react-dom'
+
 class NoticeHTML extends Component {
   openPreferences() {
-    Didomi.preferences.show();
+    Didomi.preferences.show()
   }
 
   render() {
@@ -385,18 +391,19 @@ const didomiConfig = {
       content: {
         html: {
           en: element => {
-            render(<NoticeHTML shouldDisplayMoreText={false} />, element);
+            render(<NoticeHTML shouldDisplayMoreText={false} />, element)
           }
         }
       }
     }
   }
-};
+}
 
 ...
 
 <DidomiSDK config={didomiConfig}/>
   ```
+ Other keys in `notice.content` will be ignored.
  
 ### Didomi SDK Documentation
 
