@@ -1,6 +1,6 @@
 {
   "name": "@didomi/react",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "didomi-react-test React component",
   "main": "lib/index.js",
   "module": "es/index.js",

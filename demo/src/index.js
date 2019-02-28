@@ -4,10 +4,7 @@ import { render } from 'react-dom'
 import { DidomiSDK } from '../../src'
 
 class NoticeHTML extends Component {
-  accept() {
-    // This is not working, event handlers are not working
-    // console.log('accept', this.props.didomi.isConsentRequired())
-    console.log('accept')
+  openPreferences() {
     Didomi.preferences.show();
   }
 
@@ -16,13 +13,9 @@ class NoticeHTML extends Component {
       color: 'red'
     }
 
-    console.log('render', Didomi)
-
-    //href="javascript: Didomi.preferences.show();"
-
     return (
       <div style={noticeStyle}>
-        <span>Test de HTML <a onClick={this.accept.bind(this)}>Accept</a></span>
+        <span>Custom Notice HTML. <a onClick={this.openPreferences.bind(this)}>Open Preferences</a></span>
         {
           this.props.shouldDisplayMoreText &&
           <p>More Text</p>

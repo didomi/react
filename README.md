@@ -158,6 +158,8 @@ This is the structure of the configuration object. For more information, please 
     daysBeforeShowingAgain: 0,
     textAlignment: 'left',
     learnMorePosition: null,
+    learnMoreMargin: '20px 0 0 0',
+    logoAlignment: 'flex-start',
     content: {
       popup: {
         en: 'Text',
@@ -175,6 +177,7 @@ This is the structure of the configuration object. For more information, please 
   },
   preferences: {
     defaultChoice: true,
+    enableAllButtons: true,
     content: {
       text: {
         en: 'Text',
@@ -322,8 +325,79 @@ class DidomiDemo extends Component {
   }
 }
   ```
-  
-  
+ 
+### Customize the notice
+
+You can use your own custom notice to replace the standard Didomi SDK notices (banner or popup). This option keeps some native behaviors like the position of the notice, the backdrop (for the popup notice) or the logic to decide when to display the notice.
+
+Set your HTML in the `notice.content.html` key:
+
+You can do everything through HTML:
+
+  ```js
+  const didomiConfig = {
+  website: {    
+    apiKey: '<Your API key>',        
+    notice: {
+      content: {
+        html: {
+          en: '<div>Custom Notice</div>'
+        }
+      }
+    }
+  }
+};
+
+...
+
+<DidomiSDK config={didomiConfig}/>
+  ```
+
+But if you want to keep all the advantages of React, you can call our callback function that returns the notice element and render your own React component inside:
+
+  ```jsx
+class NoticeHTML extends Component {
+  openPreferences() {
+    Didomi.preferences.show();
+  }
+
+  render() {
+    const noticeStyle = {
+      color: 'red'
+    }
+
+    return (
+      <div style={noticeStyle}>
+        <span>Custom Notice HTML. <a onClick={this.openPreferences.bind(this)}>Open Preferences</a></span>
+        {
+          this.props.shouldDisplayMoreText &&
+          <p>More Text</p>
+        }
+      </div>
+    )
+  }
+}
+
+const didomiConfig = {
+  website: {    
+    apiKey: '<Your API key>',        
+    notice: {
+      content: {
+        html: {
+          en: element => {
+            render(<NoticeHTML shouldDisplayMoreText={false} />, element);
+          }
+        }
+      }
+    }
+  }
+};
+
+...
+
+<DidomiSDK config={didomiConfig}/>
+  ```
+ 
 ### Didomi SDK Documentation
 
 See [Documentation](https://developers.didomi.io/cmp/web-sdk)
