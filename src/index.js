@@ -10,7 +10,18 @@ class DidomiSDK extends Component {
     onConsentChanged: PropTypes.func,
     onNoticeShown: PropTypes.func,
     onNoticeHidden: PropTypes.func,
-    onNoticeBackdropclick: PropTypes.func
+    onNoticeBackdropclick: PropTypes.func,
+    onNoticeClickAgree: PropTypes.func,
+    onNoticeClickMoreInfo: PropTypes.func,
+    onPreferencesClickAgreeToAll: PropTypes.func,
+    onPreferencesClickDisagreeToAll: PropTypes.func,
+    onPreferencesClickPurposeAgree: PropTypes.func,
+    onPreferencesClickPurposeDisagree: PropTypes.func,
+    onPreferencesClickViewVendors: PropTypes.func,
+    onPreferencesClickSaveChoices: PropTypes.func,
+    onPreferencesClickVendorAgree: PropTypes.func,
+    onPreferencesClickVendorDisagree: PropTypes.func,
+    onPreferencesClickVendorSaveChoices: PropTypes.func
   }
   static defaultProps = {
     config: {},
@@ -18,8 +29,20 @@ class DidomiSDK extends Component {
     onConsentChanged: () => {},
     onNoticeShown: () => {},
     onNoticeHidden: () => {},
-    onNoticeBackdropclick: () => {}
+    onNoticeBackdropclick: () => {},
+    onNoticeClickAgree: () => {},
+    onNoticeClickMoreInfo: () => {},
+    onPreferencesClickAgreeToAll: () => {},
+    onPreferencesClickDisagreeToAll: () => {},
+    onPreferencesClickPurposeAgree: () => {},
+    onPreferencesClickPurposeDisagree: () => {},
+    onPreferencesClickViewVendors: () => {},
+    onPreferencesClickSaveChoices: () => {},
+    onPreferencesClickVendorAgree: () => {},
+    onPreferencesClickVendorDisagree: () => {},
+    onPreferencesClickVendorSaveChoices: () => {}
   }
+
 
   /**
    * Called once the Didomi SDK is ready and loaded
@@ -58,6 +81,72 @@ class DidomiSDK extends Component {
         this.props.onNoticeBackdropclick()
       })
     }
+
+    if(this.props.onNoticeClickAgree) {
+      Didomi.on('notice.clickagree', e => {
+        this.props.onNoticeClickAgree()
+      })
+    }
+
+    if(this.props.onNoticeClickMoreInfo) {
+      Didomi.on('notice.clickmoreinfo', e => {
+        this.props.onNoticeClickMoreInfo()
+      })
+    }
+
+    if(this.props.onPreferencesClickAgreeToAll) {
+      Didomi.on('preferences.clickagreetoall', e => {
+        this.props.onPreferencesClickAgreeToAll()
+      })
+    }
+
+    if(this.props.onPreferencesClickDisagreeToAll) {
+      Didomi.on('preferences.clickdisagreetoall', e => {
+        this.props.onPreferencesClickDisagreeToAll()
+      })
+    }
+    if(this.props.onPreferencesClickPurposeAgree) {
+      Didomi.on('preferences.clickpurposeagree', e => {
+        this.props.onPreferencesClickPurposeAgree(e.purposeId)
+      })
+    }
+
+    if(this.props.onPreferencesClickPurposeDisagree) {
+      Didomi.on('preferences.clickpurposedisagree', e => {
+        this.props.onPreferencesClickPurposeDisagree(e.purposeId)
+      })
+    }
+
+    if(this.props.onPreferencesClickViewVendors) {
+      Didomi.on('preferences.clickviewvendors', e => {
+        this.props.onPreferencesClickViewVendors()
+      })
+    }
+
+    if(this.props.onPreferencesClickSaveChoices) {
+      Didomi.on('preferences.clicksavechoices', e => {
+        this.props.onPreferencesClickSaveChoices()
+      })
+    }
+
+    if(this.props.onPreferencesClickVendorAgree) {
+      Didomi.on('preferences.clickvendoragree', e => {
+        this.props.onPreferencesClickVendorAgree(e.vendorId)
+      })
+    }
+
+    if(this.props.onPreferencesClickVendorDisagree) {
+      Didomi.on('preferences.clickvendordisagree', e => {
+        this.props.onPreferencesClickVendorDisagree(e.vendorId)
+      })
+    }
+
+    if(this.props.onPreferencesClickVendorSaveChoices) {
+      Didomi.on('preferences.clickvendorsavechoices', e => {
+        this.props.onPreferencesClickVendorSaveChoices()
+      })
+    }
+
   }
 
   /**
