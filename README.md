@@ -42,17 +42,17 @@ const didomiConfig = {
   onNoticeShown={() => console.log('Didomi Notice Shown')}
   onNoticeHidden={() => console.log('Didomi Notice Hidden')}
   onNoticeBackdropclick={() => console.log('Didomi Notice Backdrop Click')}
-  onNoticeClickAgree: () => console.log('Didomi Notice Click Agree')}
-  onNoticeClickMoreInfo: () => console.log('Didomi Notice Click More Info')}
-  onPreferencesClickAgreeToAll: () => console.log('Didomi Preferences Click Agree to All')}
-  onPreferencesClickDisagreeToAll: () => console.log('Didomi Preferences Click Disagree to All')}
-  onPreferencesClickPurposeAgree: () => console.log('Didomi Preferences Click Purpose Agree')}
-  onPreferencesClickPurposeDisagree: () => console.log('Didomi Preferences Click Purpose Disagree')}
-  onPreferencesClickViewVendors: () => console.log('Didomi Preferences Click View Vendors')}
-  onPreferencesClickSaveChoices: () => console.log('Didomi Preferences Click Save Choices')}
-  onPreferencesClickVendorAgree: () => console.log('Didomi Preferences Click Vendor Agree')}
-  onPreferencesClickVendorDisagree: () => console.log('Didomi Preferences Click Vendor Disagree')}
-  onPreferencesClickVendorSaveChoices: () => console.log('Didomi Preferences Click Vendor Save Choices')}
+  onNoticeClickAgree={() => console.log('Didomi Notice Click Agree')}
+  onNoticeClickMoreInfo={() => console.log('Didomi Notice Click More Info')}
+  onPreferencesClickAgreeToAll={() => console.log('Didomi Preferences Click Agree to All')}
+  onPreferencesClickDisagreeToAll={() => console.log('Didomi Preferences Click Disagree to All')}
+  onPreferencesClickPurposeAgree={() => console.log('Didomi Preferences Click Purpose Agree')}
+  onPreferencesClickPurposeDisagree={() => console.log('Didomi Preferences Click Purpose Disagree')}
+  onPreferencesClickViewVendors={() => console.log('Didomi Preferences Click View Vendors')}
+  onPreferencesClickSaveChoices={() => console.log('Didomi Preferences Click Save Choices')}
+  onPreferencesClickVendorAgree={() => console.log('Didomi Preferences Click Vendor Agree')}
+  onPreferencesClickVendorDisagree={() => console.log('Didomi Preferences Click Vendor Disagree')}
+  onPreferencesClickVendorSaveChoices={() => console.log('Didomi Preferences Click Vendor Save Choices')}
 />
   ```
 
