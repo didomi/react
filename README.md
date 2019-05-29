@@ -26,7 +26,7 @@ const didomiConfig = {
   website: {
     vendors: {
       iab: {
-      all: true
+        all: true
       }
     }
   }
@@ -46,12 +46,12 @@ const didomiConfig = {
   onNoticeClickMoreInfo={() => console.log('Didomi Notice Click More Info')}
   onPreferencesClickAgreeToAll={() => console.log('Didomi Preferences Click Agree to All')}
   onPreferencesClickDisagreeToAll={() => console.log('Didomi Preferences Click Disagree to All')}
-  onPreferencesClickPurposeAgree={() => console.log('Didomi Preferences Click Purpose Agree')}
-  onPreferencesClickPurposeDisagree={() => console.log('Didomi Preferences Click Purpose Disagree')}
+  onPreferencesClickPurposeAgree={purposeId => console.log('Didomi Preferences Click Purpose Agree', purposeId)}
+  onPreferencesClickPurposeDisagree={purposeId => console.log('Didomi Preferences Click Purpose Disagree', purposeId)}
   onPreferencesClickViewVendors={() => console.log('Didomi Preferences Click View Vendors')}
   onPreferencesClickSaveChoices={() => console.log('Didomi Preferences Click Save Choices')}
-  onPreferencesClickVendorAgree={() => console.log('Didomi Preferences Click Vendor Agree')}
-  onPreferencesClickVendorDisagree={() => console.log('Didomi Preferences Click Vendor Disagree')}
+  onPreferencesClickVendorAgree={vendorId => console.log('Didomi Preferences Click Vendor Agree', vendorId)}
+  onPreferencesClickVendorDisagree={vendorId => console.log('Didomi Preferences Click Vendor Disagree', vendorId)}
   onPreferencesClickVendorSaveChoices={() => console.log('Didomi Preferences Click Vendor Save Choices')}
 />
   ```
@@ -94,97 +94,97 @@ const didomiConfig = {
       <td></td>
       <td>Called when a consent is given or withdrawn by the user. Pass the CWT Token as parameter.</td>
     </tr>
-       <tr>
+    <tr>
       <td>onNoticeShown</td>
       <td>function</td>
       <td></td>
       <td>Called when the notice is shown</td>
     </tr>
-        <tr>
+    <tr>
       <td>onNoticeHidden</td>
       <td>function</td>
       <td></td>
       <td>Called when the notice is hidden</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onNoticeBackdropclick</td>
       <td>function</td>
       <td></td>
       <td>Called when the backdrop from the popup notice is clicked</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onNoticeClickAgree</td>
       <td>function</td>
       <td></td>
       <td>Called when user clicks on agree on the notice</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onNoticeClickMoreInfo</td>
       <td>function</td>
       <td></td>
       <td>Called when user clicks on learn more on the notice</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickAgreeToAll</td>
       <td>function</td>
       <td></td>
       <td>Called when user clicks on agree to all on the preferences popup</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickDisagreeToAll</td>
       <td>function</td>
       <td></td>
       <td>Called when user clicks on disagree to all on the preferences popup</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickPurposeAgree</td>
       <td>function</td>
       <td></td>
       <td>Called when user agree to a purpose on the preferences popup. (purposeId provided as a parameter)</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickPurposeDisagree</td>
       <td>function</td>
       <td></td>
       <td>Called when user disagree to a purpose on the preferences popup. (purposeId provided as a parameter)</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickViewVendors</td>
       <td>function</td>
       <td></td>
       <td>Called when user clicks on view vendors on the preferences popup</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickSaveChoices</td>
       <td>function</td>
       <td></td>
       <td>Called when user saves his choice on the preferences popup</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickVendorAgree</td>
       <td>function</td>
       <td></td>
       <td>Called when user agree to a vendor on the preferences popup. (vendorId provided as a parameter)</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickVendorDisagree</td>
       <td>function</td>
       <td></td>
       <td>Called when user disagree to a vendor on the preferences popup. (vendorId provided as a parameter)</td>
     </tr>
     </tr>
-        <tr>
+    <tr>
       <td>onPreferencesClickVendorSaveChoices</td>
       <td>function</td>
       <td></td>

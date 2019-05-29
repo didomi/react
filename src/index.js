@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { renderToString } from 'react-dom/server';
 import PropTypes from 'prop-types';
 
 class DidomiSDK extends Component {
@@ -48,7 +47,7 @@ class DidomiSDK extends Component {
    * Called once the Didomi SDK is ready and loaded
    * @param {*} Didomi
    */
-  didomiOnLoad(Didomi) {
+  didomiOnReady(Didomi) {
     this.props.onReady(Didomi)
     this.setEvents(Didomi);
   }
@@ -173,8 +172,8 @@ class DidomiSDK extends Component {
     this.init();
 
     if(this.props.onReady) {
-      window.didomiOnLoad = window.didomiOnLoad || [];
-      window.didomiOnLoad.push(this.didomiOnLoad.bind(this));
+      window.didomiOnReady = window.didomiOnReady || [];
+      window.didomiOnReady.push(this.didomiOnReady.bind(this));
     }
 
   }
