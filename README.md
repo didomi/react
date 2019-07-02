@@ -5,7 +5,7 @@
 
 Didomi React is a React component which creates a layer on top of our SDK.
 
-### Using the component
+### Install the component
 
 1. Install the library using npm.
 
@@ -20,7 +20,38 @@ import { DidomiSDK } from '@didomi/react';
    
 Please note that the sooner you instanciate the component, the faster the banner will be displayed or the faster the consents will be shared with your partners and the ads displayed.
 
-3. Instanciate the component in your app
+#### Instanciate the component with the configuration coming from the console (recommanded)
+
+1. Create your notice in the console : https://console.didomi.io
+
+2. Instanciate the component in your app
+```jsx
+    
+<DidomiSDK
+  apiKey="API_KEY"
+  gdprAppliesGlobally={true}
+  onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
+  onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
+  onNoticeShown={() => console.log('Didomi Notice Shown')}
+  onNoticeHidden={() => console.log('Didomi Notice Hidden')}
+  onNoticeBackdropclick={() => console.log('Didomi Notice Backdrop Click')}
+  onNoticeClickAgree={() => console.log('Didomi Notice Click Agree')}
+  onNoticeClickMoreInfo={() => console.log('Didomi Notice Click More Info')}
+  onPreferencesClickAgreeToAll={() => console.log('Didomi Preferences Click Agree to All')}
+  onPreferencesClickDisagreeToAll={() => console.log('Didomi Preferences Click Disagree to All')}
+  onPreferencesClickPurposeAgree={purposeId => console.log('Didomi Preferences Click Purpose Agree', purposeId)}
+  onPreferencesClickPurposeDisagree={purposeId => console.log('Didomi Preferences Click Purpose Disagree', purposeId)}
+  onPreferencesClickViewVendors={() => console.log('Didomi Preferences Click View Vendors')}
+  onPreferencesClickSaveChoices={() => console.log('Didomi Preferences Click Save Choices')}
+  onPreferencesClickVendorAgree={vendorId => console.log('Didomi Preferences Click Vendor Agree', vendorId)}
+  onPreferencesClickVendorDisagree={vendorId => console.log('Didomi Preferences Click Vendor Disagree', vendorId)}
+  onPreferencesClickVendorSaveChoices={() => console.log('Didomi Preferences Click Vendor Save Choices')}
+/>
+  ```
+
+#### Instanciate the component with a local configuration
+
+Instanciate the component in your app
 ```jsx
 const didomiConfig = {  
   website: {

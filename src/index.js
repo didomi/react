@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class DidomiSDK extends Component {
 
   static propTypes = {
+    apiKey: PropTypes.string,
     config: PropTypes.object,
     gdprAppliesGlobally: PropTypes.bool,
     onConsentChanged: PropTypes.func,
@@ -23,6 +24,7 @@ class DidomiSDK extends Component {
     onPreferencesClickVendorSaveChoices: PropTypes.func
   }
   static defaultProps = {
+    apiKey: null,
     config: {},
     gdprAppliesGlobally: true,
     onConsentChanged: () => {},
@@ -158,9 +160,15 @@ class DidomiSDK extends Component {
 
     window.didomiConfig = this.props.config || {};
 
+    const apiKey = this.props.apiKey;
+
     const script = document.createElement("script");
     // script.src = process.env.__REACT_APP_LOADER_URL__;
-    script.src = 'https://sdk.privacy-center.org/loader.js';
+    if(apiKey) {
+      script.src = 'https://sdk.privacy-center.org/'+apiKey+'/loader.js?target='+window.location.hostname+'&platform=web';
+    } else {
+      script.src = 'https://sdk.privacy-center.org/loader.js';
+    }
     script.async = true;
     script.id = "spcloader";
 
