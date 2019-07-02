@@ -101,6 +101,12 @@ const didomiConfig = {
   </thead>
   <tbody>
     <tr>
+      <td>apiKey</td>
+      <td>string</td>
+      <td>null</td>
+      <td>Your API Key</td>
+    </tr>
+    <tr>
       <td>config</td>
       <td>object</td>
       <td>{}</td>
