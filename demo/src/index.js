@@ -108,7 +108,7 @@ class DidomiDemo extends Component {
     return <div>
       <h1>Didomi React Demo</h1>
       <DidomiSDK
-        apiKey="7dd8ec4e-746c-455e-a610-99121b4148df" //config={this.didomiConfig}
+        config={this.didomiConfig}
         gdprAppliesGlobally={true}
         onReady={this.onDidomiReady.bind(this)}
         onConsentChanged={this.consentHasChanged.bind(this)}
