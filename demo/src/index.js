@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
-import { DidomiSDK } from '../../src'
+import { DidomiSDK } from '../../index'
 
 class NoticeHTML extends Component {
   openPreferences() {

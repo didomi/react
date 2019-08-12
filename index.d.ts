@@ -13,11 +13,11 @@ declare namespace DidomiReact {
   type ConsentStatus = boolean | undefined;
 
   interface IPreferencesObject {
-    show?: () => void;
+    show: () => void;
   }
 
   interface INoticeObject {
-    show?: () => void;
+    show: () => void;
   }
 
   interface IUserConsentStatus {
@@ -35,14 +35,14 @@ declare namespace DidomiReact {
    * Didomi Object (exported by the SDK as window.Didomi)
    */
   export interface IDidomiObject {
-    on?(event: string, eventHandler: Function): void;
-    preferences?: IPreferencesObject;
-    notice?: INoticeObject;
-    isConsentRequired?: () =>  boolean;
-    getUserConsentStatusForVendor?: (vendorId: ConsentID) => ConsentStatus;
-    getUserConsentStatusForPurpose?: (purposeId: ConsentID) => ConsentStatus;
-    getUserConsentStatus?: (purposeId: ConsentID, vendorId: ConsentID) => IUserConsentStatus;
-    setUserAgreeToAll?: () => void;
+    on(event: string, eventHandler: Function): void;
+    preferences: IPreferencesObject;
+    notice: INoticeObject;
+    isConsentRequired: () =>  boolean;
+    getUserConsentStatusForVendor: (vendorId: ConsentID) => ConsentStatus;
+    getUserConsentStatusForPurpose: (purposeId: ConsentID) => ConsentStatus;
+    getUserConsentStatus: (purposeId: ConsentID, vendorId: ConsentID) => IUserConsentStatus;
+    setUserAgreeToAll: () => void;
 
     // Add support for missing methods and properties
     [key: string]: any;
