@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
-import { render } from 'react-dom'
+import * as React from 'react';
+import { render } from 'react-dom';
+import { DidomiSDK, IDidomiObject } from '../../src';
 
-import { DidomiSDK } from '../../src'
+interface INoticeHTMLProps {
+  shouldDisplayMoreText: boolean;
+}
 
-class NoticeHTML extends Component {
+class NoticeHTML extends React.Component<INoticeHTMLProps> {
   openPreferences() {
-    Didomi.preferences.show();
+    window['Didomi'].preferences.show();
   }
 
   render() {
@@ -30,16 +33,22 @@ const NoticeHTMLFunc = () => {
   return (
     <div>Test de HTML Func</div>
   )
+};
+
+interface IDidomiDemoProps {
+
 }
 
+class DidomiDemo extends React.Component<IDidomiDemoProps> {
 
-class DidomiDemo extends Component {
+  protected didomiObject: IDidomiObject;
+  protected didomiConfig: any;
 
   constructor(props) {
     super(props);
     this.didomiObject = {};
 
-    window.didomiCountry = 'FR';
+    window['didomiCountry'] = 'FR';
 
     /**
      * This is the configuration object that will set the Didomi SDK
@@ -67,8 +76,8 @@ class DidomiDemo extends Component {
             en: "TEST STRING"
           },
           dismiss: {
-              en: 'I agree',
-              fr: 'J\'accepte Custom'
+            en: 'I agree',
+            fr: 'J\'accepte Custom'
           },
         }
       },
@@ -93,7 +102,7 @@ class DidomiDemo extends Component {
   }
 
   /**
-   * Called everytime the consent changes
+   * Called every time the consent changes
    */
   consentHasChanged(cwtToken) {
     console.log('Didomi Consent Changed - cwtToken : ', cwtToken);
@@ -118,4 +127,4 @@ class DidomiDemo extends Component {
   }
 }
 
-render(<DidomiDemo/>, document.querySelector('#demo'))
+render(<DidomiDemo/>, document.querySelector('#demo'));

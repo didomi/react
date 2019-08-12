@@ -19,7 +19,10 @@
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/node": "^12.7.1",
+    "@types/react": "^16.9.1"
+  },
   "peerDependencies": {
     "react": "16.x"
   },
@@ -39,7 +42,7 @@
     "react"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/didomi/react"
+    "type": "git",
+    "url": "https://github.com/didomi/react"
   }
 }

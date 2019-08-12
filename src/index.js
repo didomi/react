@@ -7,6 +7,7 @@ class DidomiSDK extends Component {
     apiKey: PropTypes.string,
     config: PropTypes.object,
     gdprAppliesGlobally: PropTypes.bool,
+    onReady: PropTypes.func,
     onConsentChanged: PropTypes.func,
     onNoticeShown: PropTypes.func,
     onNoticeHidden: PropTypes.func,
@@ -27,6 +28,7 @@ class DidomiSDK extends Component {
     apiKey: null,
     config: {},
     gdprAppliesGlobally: true,
+    onReady: () => {},
     onConsentChanged: () => {},
     onNoticeShown: () => {},
     onNoticeHidden: () => {},
@@ -62,7 +64,7 @@ class DidomiSDK extends Component {
     if(this.props.onConsentChanged) {
       Didomi.on('consent.changed', e => {
         this.props.onConsentChanged(e.consentToken)
-      })    
+      })
     }
 
     if(this.props.onNoticeShown) {
@@ -191,4 +193,4 @@ class DidomiSDK extends Component {
   }
 };
 
-export { DidomiSDK } 
+export { DidomiSDK }
