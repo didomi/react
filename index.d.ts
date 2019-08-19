@@ -3,7 +3,6 @@
 // TypeScript Version: 2.8
 
 import { Component } from 'react';
-import { IDidomiConfig } from './index';
 
 export = DidomiReact;
 export as namespace DidomiReact;
@@ -13,11 +12,25 @@ declare namespace DidomiReact {
   type ConsentStatus = boolean | undefined;
 
   interface IPreferencesObject {
-    show: () => void;
+    show(): void;
+    hide(): void;
+    isVisible(): boolean;
   }
 
   interface INoticeObject {
-    show: () => void;
+    show(): void;
+    configure(): void;
+    hide(): void;
+    isVisible(): boolean;
+  }
+
+  interface IPolicyObject {
+    close(): void;
+    open(): void;
+  }
+
+  interface IThemeObject {
+    set(property: string, value: string);
   }
 
   interface IUserConsentStatus {
@@ -35,14 +48,48 @@ declare namespace DidomiReact {
    * Didomi Object (exported by the SDK as window.Didomi)
    */
   export interface IDidomiObject {
+    version: string;
     on(event: string, eventHandler: Function): void;
+
     preferences: IPreferencesObject;
     notice: INoticeObject;
-    isConsentRequired: () =>  boolean;
-    getUserConsentStatusForVendor: (vendorId: ConsentID) => ConsentStatus;
-    getUserConsentStatusForPurpose: (purposeId: ConsentID) => ConsentStatus;
-    getUserConsentStatus: (purposeId: ConsentID, vendorId: ConsentID) => IUserConsentStatus;
-    setUserAgreeToAll: () => void;
+    policy: IPolicyObject;
+    Purposes: {
+      [key: string]: any;
+    };
+
+    getConfig(): any;
+    getExperiment(): any;
+    getLanguage(): any;
+    getPurposes(): any;
+    getRequiredPurposeIds(): any;
+    getTranslationAsHTML(): any;
+    getUserConsentStatusForAll(): any;
+    getUserConsentToken(): any;
+    getVendors(): any;
+    getRequiredVendorIds(): any;
+    getUserConsentStatusForVendor(vendorId: ConsentID): ConsentStatus;
+    getUserConsentStatusForPurpose(purposeId: ConsentID): ConsentStatus;
+    getUserConsentStatus(purposeId: ConsentID, vendorId: ConsentID): IUserConsentStatus;
+    getObservableOnUserConsentStatusForVendor(vendorId: ConsentID): any;
+    getPurposeById(id: ConsentID): any;
+    getVendorById(id: ConsentID): any;
+    getRequiredPurposes(type?: string): any;
+    getRequiredVendors(type?: string): any;
+
+    setUserConsentStatusForAll(): void;
+    setUserDisagreeToAll(): void;
+    setUserAgreeToAll(): void;
+    setConfigParameter(param: any, value: any): void;
+    setUserConsentStatus(purposeId: ConsentID, vendorId: ConsentID, value: any): void;
+
+    isConsentRequired(): boolean;
+    isUserConsentStatusPartial(): boolean;
+    shouldConsentBeCollected(): boolean;
+
+    configure(): any;
+    openTransaction(): any;
+    reset(): any;
 
     // Add support for missing methods and properties
     [key: string]: any;
@@ -64,20 +111,20 @@ declare namespace DidomiReact {
     gdprAppliesGlobally?: boolean;
     onReady?: OnReadyFunction;
     onConsentChanged?: OnConsentChangedFunction;
-    onNoticeShown?: Function;
-    onNoticeHidden?: Function;
-    onNoticeBackdropclick?: Function;
-    onNoticeClickAgree?: Function;
-    onNoticeClickMoreInfo?: Function;
-    onPreferencesClickAgreeToAll?: Function;
-    onPreferencesClickDisagreeToAll?: Function;
+    onNoticeShown?(): any;
+    onNoticeHidden?(): any;
+    onNoticeBackdropclick?(): any;
+    onNoticeClickAgree?(): any;
+    onNoticeClickMoreInfo?(): any;
+    onPreferencesClickAgreeToAll?(): any;
+    onPreferencesClickDisagreeToAll?(): any;
     onPreferencesClickPurposeAgree?: OnPreferencesClickPurposeFunction;
     onPreferencesClickPurposeDisagree?: OnPreferencesClickPurposeFunction;
-    onPreferencesClickViewVendors?: Function;
-    onPreferencesClickSaveChoices?: Function;
+    onPreferencesClickViewVendors?(): any;
+    onPreferencesClickSaveChoices?(): any;
     onPreferencesClickVendorAgree?: OnPreferencesClickVendorFunction;
     onPreferencesClickVendorDisagree?: OnPreferencesClickVendorFunction;
-    onPreferencesClickVendorSaveChoices?: Function;
+    onPreferencesClickVendorSaveChoices?(): any;
   }
 
   /**
