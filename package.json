@@ -39,7 +39,7 @@
     "react"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/didomi/react"
+    "type": "git",
+    "url": "https://github.com/didomi/react"
   }
 }

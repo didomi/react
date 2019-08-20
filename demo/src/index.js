@@ -44,7 +44,7 @@ class DidomiDemo extends Component {
     /**
      * This is the configuration object that will set the Didomi SDK
      */
-    this.didomiConfig = {  
+    this.didomiConfig = {
       website: {
         name: 'Didomi',
         apiKey: 'API_KEY',
@@ -81,7 +81,7 @@ class DidomiDemo extends Component {
   }
 
   /**
-   * Called once we have the callback from the SDK informing that Didoni is loaded and ready
+   * Called once we have the callback from the SDK informing that Didomi is loaded and ready
    */
   onDidomiReady(didomi) {
     this.didomiObject = didomi;
