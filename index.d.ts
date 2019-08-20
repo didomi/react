@@ -30,7 +30,7 @@ declare namespace DidomiReact {
   }
 
   interface IThemeObject {
-    set(property: string, value: string);
+    set(property: string, value: string): void;
   }
 
   interface IUserConsentStatus {
