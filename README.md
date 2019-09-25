@@ -5,7 +5,7 @@
 
 Didomi React is a React component which creates a layer on top of our SDK.
 
-### Install the component
+## Install the component
 
 1. Install the library using npm.
 
@@ -16,17 +16,19 @@ $ npm install --save @didomi/react
 
 ```js
 import { DidomiSDK } from '@didomi/react';
-  ```
-   
-Please note that the sooner you instanciate the component, the faster the banner will be displayed or the faster the consents will be shared with your partners and the ads displayed.
+```
 
-#### Instanciate the component with the configuration coming from the console (recommanded)
+We recommend instantiating the `DidomiSDK` component as early as possible in your React application.    
+The sooner you instantiate the component, the faster the banner will be displayed or the faster the consents will be shared with your partners and the ads displayed.
 
-1. Create your notice in the console : https://console.didomi.io
+## Create the DidomiSDK component
 
-2. Instanciate the component in your app
+### Instantiate the component with the configuration coming from the Didomi Console (recommended)
+
+1. Create and configure your consent notice in the Console : https://console.didomi.io
+
+2. Instantiate the component in your app
 ```jsx
-    
 <DidomiSDK
   apiKey="API_KEY"
   gdprAppliesGlobally={true}
@@ -47,11 +49,19 @@ Please note that the sooner you instanciate the component, the faster the banner
   onPreferencesClickVendorDisagree={vendorId => console.log('Didomi Preferences Click Vendor Disagree', vendorId)}
   onPreferencesClickVendorSaveChoices={() => console.log('Didomi Preferences Click Vendor Save Choices')}
 />
-  ```
+```
 
-#### Instanciate the component with a local configuration
+The Didomi SDK will automatically download its configuration from the Didomi Console.  
+Configuration modifications applied through the Didomi Console will be distributed to your users automatically, without modifications to your code.
 
-Instanciate the component in your app
+### Instantiate the component with a local configuration
+
+If you prefer, you can pass a local configuration the Didomi SDK instead of managing the configuration through the Didomi Console.  
+With this setup, modifying your configuration will require that you also re-deploy your app.
+
+You can use local configuration to override some remote configuration as well. For instance, you can provide your own notice (see the `Customize the notice` section below) while still using the Didomi Console for the rest of the configuration.
+
+Instantiate the component in your app:
 ```jsx
 const didomiConfig = {  
   website: {
@@ -62,9 +72,9 @@ const didomiConfig = {
     }
   }
 }
-    
+
 ...
-    
+
 <DidomiSDK
   config={didomiConfig}
   gdprAppliesGlobally={true}
@@ -87,8 +97,9 @@ const didomiConfig = {
 />
   ```
 
+## Configuration options (props)
 
-### Column Props
+The following configuration options can be passed as props to the `DidomiSDK` component:
 
 <table>
   <thead>
@@ -233,7 +244,7 @@ const didomiConfig = {
 
 ### Configuration object
 
-This is the structure of the configuration object. For more information, please visit our [SDK documentation](https://developers.didomi.io/cmp/web-sdk/getting-started)
+This is the structure of the configuration object passed to the `config` prop. For more information, please visit our [SDK documentation](https://developers.didomi.io/cmp/web-sdk/getting-started)
 
 ```js
 {
@@ -377,7 +388,7 @@ This is the structure of the configuration object. For more information, please 
   ```
 
 
-### Example of implementation
+## Example
 
 ```jsx
 import React, { Component } from 'react'
@@ -451,38 +462,15 @@ class DidomiDemo extends Component {
 }
   ```
  
-### Customize the notice
+## Customize the notice
 
 You can use your own custom notice to replace the standard Didomi SDK notices (banner or popup). This option keeps some native behaviors like the position of the notice, the backdrop (for the popup notice) or the logic to decide when to display the notice.
 
-Set your HTML in the `notice.content.html` key:
+Set your HTML in the `notice.content.html` key of the `config` prop:
 
-##### Custom HTML in the notice
+### Custom React component in the notice
 
-You can do everything through HTML:
-
-  ```js
-  const didomiConfig = {
-  website: {    
-    apiKey: '<Your API key>',        
-    notice: {
-      content: {
-        html: {
-          en: '<div>Custom Notice</div>'
-        }
-      }
-    }
-  }
-}
-
-...
-
-<DidomiSDK config={didomiConfig}/>
-  ```
-
-##### Custom React component in the notice
-
-If you want to keep all the advantages of React, you can call our callback function that returns the notice element and render your own React component inside:
+If you want to keep all the advantages of React, you can call our callback function that returns the notice HTML element and render your own React component inside:
 
   ```jsx
 import { render } from 'react-dom'
@@ -527,13 +515,36 @@ const didomiConfig = {
 ...
 
 <DidomiSDK config={didomiConfig}/>
+```
+
+Other keys in `notice.content` will be ignored.
+
+### Custom HTML in the notice
+
+You can do everything through HTML:
+
+  ```js
+  const didomiConfig = {
+  website: {    
+    apiKey: '<Your API key>',        
+    notice: {
+      content: {
+        html: {
+          en: '<div>Custom Notice</div>'
+        }
+      }
+    }
+  }
+}
+
+...
+
+<DidomiSDK config={didomiConfig}/>
   ```
- Other keys in `notice.content` will be ignored.
  
 ### Didomi SDK Documentation
 
 See [Documentation](https://developers.didomi.io/cmp/web-sdk)
-
 
 ### License
 
