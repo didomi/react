@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class DidomiSDK extends Component {
-
   static propTypes = {
     apiKey: PropTypes.string,
     config: PropTypes.object,
@@ -24,6 +23,7 @@ class DidomiSDK extends Component {
     onPreferencesClickVendorDisagree: PropTypes.func,
     onPreferencesClickVendorSaveChoices: PropTypes.func
   }
+
   static defaultProps = {
     apiKey: null,
     config: {},
@@ -45,7 +45,6 @@ class DidomiSDK extends Component {
     onPreferencesClickVendorDisagree: () => {},
     onPreferencesClickVendorSaveChoices: () => {}
   }
-
 
   /**
    * Called once the Didomi SDK is ready and loaded
@@ -149,7 +148,6 @@ class DidomiSDK extends Component {
         this.props.onPreferencesClickVendorSaveChoices()
       })
     }
-
   }
 
   /**
