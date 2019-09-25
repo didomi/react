@@ -157,35 +157,20 @@ class DidomiSDK extends Component {
    */
   init() {
     let gdprAppliesGlobally = this.props.gdprAppliesGlobally === false ? false : true;
-
-    window.gdprAppliesGlobally=gdprAppliesGlobally;(function(){function a(){if(!window.frames.__cmpLocator){if(document.body&&document.body.firstChild){var e=document.body;var n=document.createElement("iframe");n.style.display="none";n.name="__cmpLocator";e.insertBefore(n,e.firstChild)}else{setTimeout(a,5)}}}function e(e,n,a){if(typeof a!=="function"){return}if(!window.__cmpBuffer){window.__cmpBuffer=[]}if(e==="ping"){a({gdprAppliesGlobally:window.gdprAppliesGlobally,cmpLoaded:false},true)}else{window.__cmpBuffer.push({command:e,parameter:n,callback:a})}}e.stub=true;function n(t){if(!window.__cmp||window.__cmp.stub!==true){return}if(!t.data){return}var i=typeof t.data==="string";var e=i?JSON.parse(t.data):t.data;if(e.__cmpCall){var o=e.__cmpCall;window.__cmp(o.command,o.parameter,function(e,n){var a={__cmpReturn:{returnValue:e,success:n,callId:o.callId}};t.source.postMessage(i?JSON.stringify(a):a,"*")})}}if(typeof window.__cmp!=="function"){window.__cmp=e;if(window.addEventListener){window.addEventListener("message",n,false)}else{window.attachEvent("onmessage",n)}}a()})();
-
     window.didomiConfig = this.props.config || {};
 
-    const apiKey = this.props.apiKey;
-
-    const script = document.createElement("script");
-    // script.src = process.env.__REACT_APP_LOADER_URL__;
-    if(apiKey) {
-      script.src = 'https://sdk.privacy-center.org/'+apiKey+'/loader.js?target='+window.location.hostname+'&platform=web';
-    } else {
-      script.src = 'https://sdk.privacy-center.org/loader.js';
-    }
-    script.async = true;
-    script.id = "spcloader";
-
-    document.head.appendChild(script);
+    // Embed the Didomi SDK on the page
+    window.gdprAppliesGlobally=gdprAppliesGlobally;
+    (function(){function r(){if(!window.frames.__cmpLocator){if(document.body&&document.body.firstChild){var e=document.body;var t=document.createElement("iframe");t.style.display="none";t.name="__cmpLocator";t.title="cmpLocator";e.insertBefore(t,e.firstChild)}else{setTimeout(r,5)}}}function e(e,t,r){if(typeof r!=="function"){return}if(!window.__cmpBuffer){window.__cmpBuffer=[]}if(e==="ping"){r({gdprAppliesGlobally:window.gdprAppliesGlobally,cmpLoaded:false},true)}else{window.__cmpBuffer.push({command:e,parameter:t,callback:r})}}e.stub=true;function t(a){if(!window.__cmp||window.__cmp.stub!==true){return}if(!a.data){return}var n=typeof a.data==="string";var e;try{e=n?JSON.parse(a.data):a.data}catch(t){return}if(e.__cmpCall){var o=e.__cmpCall;window.__cmp(o.command,o.parameter,function(e,t){var r={__cmpReturn:{returnValue:e,success:t,callId:o.callId}};a.source.postMessage(n?JSON.stringify(r):r,"*")})}}if(typeof window.__cmp!=="function"){window.__cmp=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}r()})();(function(e){var t=e?e+"/":"";var r=document.createElement("script");r.id="spcloader";r.type="text/javascript";r.async=true;r.src="https://sdk.privacy-center.org/"+t+"loader.js?target="+document.location.hostname;r.charset="utf-8";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a)})(this.props.apiKey);
   }
 
   componentDidMount() {
-
     this.init();
 
     if(this.props.onReady) {
       window.didomiOnReady = window.didomiOnReady || [];
       window.didomiOnReady.push(this.didomiOnReady.bind(this));
     }
-
   }
 
   render() {
