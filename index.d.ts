@@ -38,7 +38,7 @@ declare namespace DidomiReact {
       enabled: any[],
       disabled: any[],
     };
-    vendor: {
+    vendors: {
       enabled: any[],
       disabled: any[],
     }
