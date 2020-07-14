@@ -32,6 +32,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
 <DidomiSDK
   apiKey="API_KEY"
   iabVersion={1} // If you want to support the TCF v2, don't forget to change this value, even if you selected the TCF v2 in the console. This parameter will load the correct stub in the React Component
+  noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
@@ -79,6 +80,7 @@ const didomiConfig = {
 <DidomiSDK
   config={didomiConfig}
   iabVersion={1} // If you want to support the TCF v2, don't forget to change this value. This parameter will load the correct stub in the React Component
+  noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
@@ -119,11 +121,17 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>null</td>
       <td>Your API Key</td>
     </tr>
-        <tr>
+    <tr>
       <td>iabVersion</td>
       <td>number</td>
       <td>1</td>
       <td>The IAB TCF Version you want to support (1 or 2)</td>
+    </tr>
+    <tr>
+      <td>noticeId</td>
+      <td>string</td>
+      <td></td>
+      <td>The ID of the remote notice you want to target (If you choose not the target by domain)</td>
     </tr>
     <tr>
       <td>config</td>
