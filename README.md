@@ -31,6 +31,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
 ```jsx
 <DidomiSDK
   apiKey="API_KEY"
+  iabVersion={1} // If you want to support the TCF v2, don't forget to change this value, even if you selected the TCF v2 in the console. This parameter will load the correct stub in the React Component
   gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
@@ -64,7 +65,7 @@ You can use local configuration to override some remote configuration as well. F
 Instantiate the component in your app:
 ```jsx
 const didomiConfig = {  
-  website: {
+  app: {
     vendors: {
       iab: {
         all: true
@@ -77,6 +78,7 @@ const didomiConfig = {
 
 <DidomiSDK
   config={didomiConfig}
+  iabVersion={1} // If you want to support the TCF v2, don't forget to change this value. This parameter will load the correct stub in the React Component
   gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
@@ -116,6 +118,12 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>string</td>
       <td>null</td>
       <td>Your API Key</td>
+    </tr>
+        <tr>
+      <td>iabVersion</td>
+      <td>number</td>
+      <td>1</td>
+      <td>The IAB TCF Version you want to support (1 or 2)</td>
     </tr>
     <tr>
       <td>config</td>
@@ -248,7 +256,7 @@ This is the structure of the configuration object passed to the `config` prop. F
 
 ```js
 {
-  website: {
+  app: {
     ignoreCountry: true,
     privacyPolicyURL: 'http://example.com',
     name: 'Example',
@@ -399,12 +407,13 @@ import { DidomiSDK } from '@didomi/react'
  * This is the configuration object that will set the Didomi SDK
  */
 const didomiConfig = {  
-  website: {
+  app: {
     name: 'Didomi',
     apiKey: 'API_KEY',
     vendors: {
       iab: {
-        all: true
+        all: true,
+        version: 2
       }
     }
   },
@@ -451,6 +460,7 @@ class DidomiDemo extends Component {
     return <div>
       <h1>Didomi React Demo</h1>
       <DidomiSDK
+        iabVersion={2}
         config={didomiConfig}
         gdprAppliesGlobally={true}
         onReady={this.onDidomiReady.bind(this)}
@@ -498,7 +508,7 @@ class NoticeHTML extends Component {
 }
 
 const didomiConfig = {
-  website: {    
+  app: {    
     apiKey: '<Your API key>',        
     notice: {
       content: {
@@ -525,7 +535,7 @@ You can do everything through HTML:
 
   ```js
   const didomiConfig = {
-  website: {    
+  app: {    
     apiKey: '<Your API key>',        
     notice: {
       content: {
