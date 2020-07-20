@@ -5,6 +5,7 @@ class DidomiSDK extends Component {
   static propTypes = {
     apiKey: PropTypes.string,
     iabVersion: PropTypes.number,
+    noticeId: PropTypes.string,
     config: PropTypes.object,
     gdprAppliesGlobally: PropTypes.bool,
     onReady: PropTypes.func,
@@ -28,6 +29,7 @@ class DidomiSDK extends Component {
   static defaultProps = {
     apiKey: null,
     iabVersion: 1,
+    noticeId: null,
     config: {},
     gdprAppliesGlobally: true,
     onReady: () => {},
