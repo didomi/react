@@ -107,6 +107,8 @@ declare namespace DidomiReact {
    */
   interface IDidomiSDKProps {
     apiKey?: string;
+    iabVersion?: number;
+    noticeId?: string;
     config?: IDidomiConfig;
     gdprAppliesGlobally?: boolean;
     onReady?: OnReadyFunction;
