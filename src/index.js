@@ -155,11 +155,22 @@ class DidomiSDK extends Component {
   }
 
   /**
+   * Get the API Key from the props or from the config if it exists
+   */
+  getApiKey() {
+    let apiKey;
+    if(this.props.config.app && this.props.config.app.apiKey) {
+      apiKey = this.props.config.app.apiKey
+    }
+    return this.props.apiKey || apiKey;
+  }
+
+  /**
    * Initialize the SDK, set the config object and insert the loader.js into the DOM
    */
   init() {
     let loaderParams;
-    let apiKey = this.props.apiKey;
+    let apiKey = this.getApiKey();
     let gdprAppliesGlobally = this.props.gdprAppliesGlobally === false ? false : true;
     window.didomiConfig = this.props.config || {};
 

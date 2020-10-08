@@ -45,7 +45,7 @@ class DidomiDemo extends Component {
      * This is the configuration object that will set the Didomi SDK
      */
     this.didomiConfig = {
-      website: {
+      app: {
         name: 'Didomi',
         apiKey: 'API_KEY',
         vendors: {
@@ -64,7 +64,7 @@ class DidomiDemo extends Component {
             // en: element => {
             //   render(<NoticeHTMLFunc />, element);
             // },
-            en: "TEST STRING"
+            // en: "TEST STRING"
           },
           dismiss: {
               en: 'I agree',
@@ -108,6 +108,7 @@ class DidomiDemo extends Component {
     return <div>
       <h1>Didomi React Demo</h1>
       <DidomiSDK
+        apiKey={'1234-5678'}
         config={this.didomiConfig}
         gdprAppliesGlobally={true}
         onReady={this.onDidomiReady.bind(this)}
