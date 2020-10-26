@@ -31,7 +31,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
 ```jsx
 <DidomiSDK
   apiKey="API_KEY"
-  iabVersion={1} // If you want to support the TCF v2, don't forget to change this value, even if you selected the TCF v2 in the console. This parameter will load the correct stub in the React Component
+  iabVersion={2} // If you want to support the TCF v1∏, don't forget to change this value, even if you selected the TCF v2 in the console. This parameter will load the correct stub in the React Component
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
@@ -79,7 +79,7 @@ const didomiConfig = {
 
 <DidomiSDK
   config={didomiConfig}
-  iabVersion={1} // If you want to support the TCF v2, don't forget to change this value. This parameter will load the correct stub in the React Component
+  iabVersion={2} // If you want to support the TCF v1, don't forget to change this value. This parameter will load the correct stub in the React Component
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
@@ -257,10 +257,9 @@ The following configuration options can be passed as props to the `DidomiSDK` co
   </tbody>
 </table>
 
+### Configuration object (Optional)
 
-### Configuration object
-
-This is the structure of the configuration object passed to the `config` prop. For more information, please visit our [SDK documentation](https://developers.didomi.io/cmp/web-sdk/getting-started)
+This is the structure of the configuration object passed to the `config` prop. For more information, please visit our [SDK documentation](https://developers.didomi.io/cmp/web-sdk/getting-started).
 
 ```js
 {
