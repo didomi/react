@@ -259,6 +259,8 @@ The following configuration options can be passed as props to the `DidomiSDK` co
 
 ### Configuration object (Optional)
 
+The notice is usually configured through the Didomi Console. If you choose to manage the configuration via a configuration object, the `config` prop allows you to pass configuration options that override the configuration from the Console and is optional.
+
 This is the structure of the configuration object passed to the `config` prop. For more information, please visit our [SDK documentation](https://developers.didomi.io/cmp/web-sdk/getting-started).
 
 ```js
