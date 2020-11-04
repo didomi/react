@@ -1,155 +1,131 @@
-import { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class DidomiSDK extends Component {
-  static propTypes = {
-    apiKey: PropTypes.string,
-    iabVersion: PropTypes.number,
-    noticeId: PropTypes.string,
-    config: PropTypes.object,
-    gdprAppliesGlobally: PropTypes.bool,
-    onReady: PropTypes.func,
-    onConsentChanged: PropTypes.func,
-    onNoticeShown: PropTypes.func,
-    onNoticeHidden: PropTypes.func,
-    onNoticeBackdropclick: PropTypes.func,
-    onNoticeClickAgree: PropTypes.func,
-    onNoticeClickMoreInfo: PropTypes.func,
-    onPreferencesClickAgreeToAll: PropTypes.func,
-    onPreferencesClickDisagreeToAll: PropTypes.func,
-    onPreferencesClickPurposeAgree: PropTypes.func,
-    onPreferencesClickPurposeDisagree: PropTypes.func,
-    onPreferencesClickViewVendors: PropTypes.func,
-    onPreferencesClickSaveChoices: PropTypes.func,
-    onPreferencesClickVendorAgree: PropTypes.func,
-    onPreferencesClickVendorDisagree: PropTypes.func,
-    onPreferencesClickVendorSaveChoices: PropTypes.func
-  }
-
-  static defaultProps = {
-    apiKey: null,
-    iabVersion: 1,
-    noticeId: null,
-    config: {},
-    gdprAppliesGlobally: true,
-    onReady: () => {},
-    onConsentChanged: () => {},
-    onNoticeShown: () => {},
-    onNoticeHidden: () => {},
-    onNoticeBackdropclick: () => {},
-    onNoticeClickAgree: () => {},
-    onNoticeClickMoreInfo: () => {},
-    onPreferencesClickAgreeToAll: () => {},
-    onPreferencesClickDisagreeToAll: () => {},
-    onPreferencesClickPurposeAgree: () => {},
-    onPreferencesClickPurposeDisagree: () => {},
-    onPreferencesClickViewVendors: () => {},
-    onPreferencesClickSaveChoices: () => {},
-    onPreferencesClickVendorAgree: () => {},
-    onPreferencesClickVendorDisagree: () => {},
-    onPreferencesClickVendorSaveChoices: () => {}
-  }
-
+const DidomiSDK = ({
+  apiKey: apiKeyProp =  null,
+  iabVersion =  1,
+  noticeId =  null,
+  config =  {},
+  gdprAppliesGlobally: gdprAppliesGloballyProp =  true,
+  onReady =  () => {},
+  onConsentChanged =  () => {},
+  onNoticeShown =  () => {},
+  onNoticeHidden =  () => {},
+  onNoticeBackdropclick =  () => {},
+  onNoticeClickAgree =  () => {},
+  onNoticeClickMoreInfo =  () => {},
+  onPreferencesClickAgreeToAll =  () => {},
+  onPreferencesClickDisagreeToAll =  () => {},
+  onPreferencesClickPurposeAgree =  () => {},
+  onPreferencesClickPurposeDisagree =  () => {},
+  onPreferencesClickViewVendors =  () => {},
+  onPreferencesClickSaveChoices =  () => {},
+  onPreferencesClickVendorAgree =  () => {},
+  onPreferencesClickVendorDisagree =  () => {},
+  onPreferencesClickVendorSaveChoices =  () => {},
+  src = "https://sdk.privacy-center.org/"
+}) => {
+ 
   /**
    * Called once the Didomi SDK is ready and loaded
    * @param {*} Didomi
    */
-  didomiOnReady(Didomi) {
-    this.props.onReady(Didomi)
-    this.setEvents(Didomi);
+  const handleDidomiOnReady = (Didomi) => {
+    onReady(Didomi)
+    setEvents(Didomi);
   }
 
   /**
    * Set all the Didomi events the return the callbacks from the props
    * @param {*} Didomi
    */
-  setEvents(Didomi) {
-    if(this.props.onConsentChanged) {
+  const setEvents = (Didomi) => {
+    if(onConsentChanged) {
       Didomi.on('consent.changed', e => {
-        this.props.onConsentChanged(e.consentToken)
+        onConsentChanged(e.consentToken)
       })
     }
 
-    if(this.props.onNoticeShown) {
+    if(onNoticeShown) {
       Didomi.on('notice.shown', e => {
-        this.props.onNoticeShown()
+        onNoticeShown()
       })
     }
 
-    if(this.props.onNoticeHidden) {
+    if(onNoticeHidden) {
       Didomi.on('notice.hidden', e => {
-        this.props.onNoticeHidden()
+        onNoticeHidden()
       })
     }
 
-    if(this.props.onNoticeBackdropclick) {
+    if(onNoticeBackdropclick) {
       Didomi.on('notice.backdropclick', e => {
-        this.props.onNoticeBackdropclick()
+        onNoticeBackdropclick()
       })
     }
 
-    if(this.props.onNoticeClickAgree) {
+    if(onNoticeClickAgree) {
       Didomi.on('notice.clickagree', e => {
-        this.props.onNoticeClickAgree()
+        onNoticeClickAgree()
       })
     }
 
-    if(this.props.onNoticeClickMoreInfo) {
+    if(onNoticeClickMoreInfo) {
       Didomi.on('notice.clickmoreinfo', e => {
-        this.props.onNoticeClickMoreInfo()
+        onNoticeClickMoreInfo()
       })
     }
 
-    if(this.props.onPreferencesClickAgreeToAll) {
+    if(onPreferencesClickAgreeToAll) {
       Didomi.on('preferences.clickagreetoall', e => {
-        this.props.onPreferencesClickAgreeToAll()
+        onPreferencesClickAgreeToAll()
       })
     }
 
-    if(this.props.onPreferencesClickDisagreeToAll) {
+    if(onPreferencesClickDisagreeToAll) {
       Didomi.on('preferences.clickdisagreetoall', e => {
-        this.props.onPreferencesClickDisagreeToAll()
+        onPreferencesClickDisagreeToAll()
       })
     }
-    if(this.props.onPreferencesClickPurposeAgree) {
+    if(onPreferencesClickPurposeAgree) {
       Didomi.on('preferences.clickpurposeagree', e => {
-        this.props.onPreferencesClickPurposeAgree(e.purposeId)
+        onPreferencesClickPurposeAgree(e.purposeId)
       })
     }
 
-    if(this.props.onPreferencesClickPurposeDisagree) {
+    if(onPreferencesClickPurposeDisagree) {
       Didomi.on('preferences.clickpurposedisagree', e => {
-        this.props.onPreferencesClickPurposeDisagree(e.purposeId)
+        onPreferencesClickPurposeDisagree(e.purposeId)
       })
     }
 
-    if(this.props.onPreferencesClickViewVendors) {
+    if(onPreferencesClickViewVendors) {
       Didomi.on('preferences.clickviewvendors', e => {
-        this.props.onPreferencesClickViewVendors()
+        onPreferencesClickViewVendors()
       })
     }
 
-    if(this.props.onPreferencesClickSaveChoices) {
+    if(onPreferencesClickSaveChoices) {
       Didomi.on('preferences.clicksavechoices', e => {
-        this.props.onPreferencesClickSaveChoices()
+        onPreferencesClickSaveChoices()
       })
     }
 
-    if(this.props.onPreferencesClickVendorAgree) {
+    if(onPreferencesClickVendorAgree) {
       Didomi.on('preferences.clickvendoragree', e => {
-        this.props.onPreferencesClickVendorAgree(e.vendorId)
+        onPreferencesClickVendorAgree(e.vendorId)
       })
     }
 
-    if(this.props.onPreferencesClickVendorDisagree) {
+    if(onPreferencesClickVendorDisagree) {
       Didomi.on('preferences.clickvendordisagree', e => {
-        this.props.onPreferencesClickVendorDisagree(e.vendorId)
+        onPreferencesClickVendorDisagree(e.vendorId)
       })
     }
 
-    if(this.props.onPreferencesClickVendorSaveChoices) {
+    if(onPreferencesClickVendorSaveChoices) {
       Didomi.on('preferences.clickvendorsavechoices', e => {
-        this.props.onPreferencesClickVendorSaveChoices()
+        onPreferencesClickVendorSaveChoices()
       })
     }
   }
@@ -157,51 +133,74 @@ class DidomiSDK extends Component {
   /**
    * Get the API Key from the props or from the config if it exists
    */
-  getApiKey() {
+  const getApiKey = () => {
     let apiKey;
-    if(this.props.config.app && this.props.config.app.apiKey) {
-      apiKey = this.props.config.app.apiKey
+    if(config.app && config.app.apiKey) {
+      apiKey = config.app.apiKey
     }
-    return this.props.apiKey || apiKey;
+    return apiKeyProp || apiKey;
   }
 
   /**
    * Initialize the SDK, set the config object and insert the loader.js into the DOM
    */
-  init() {
+  const init = () => {
     let loaderParams;
-    let apiKey = this.getApiKey();
-    let gdprAppliesGlobally = this.props.gdprAppliesGlobally === false ? false : true;
-    window.didomiConfig = this.props.config || {};
+    let apiKey = getApiKey();
+    let gdprAppliesGlobally = gdprAppliesGloballyProp === false ? false : true;
+    window.didomiConfig = config || {};
 
     // Embed the Didomi SDK on the page
     window.gdprAppliesGlobally=gdprAppliesGlobally;
-    if(this.props.noticeId) {
-      loaderParams = `target_type=notice&target=${this.props.noticeId}`;
+    if(noticeId) {
+      loaderParams = `target_type=notice&target=${noticeId}`;
     } else {
       loaderParams = `target=${document.location.hostname}`;
     }
-    if(this.props.iabVersion === 2) {
+    if(iabVersion === 2) {
       // TCF v2
-      (function(){function a(e){if(!window.frames[e]){if(document.body&&document.body.firstChild){var t=document.body;var n=document.createElement("iframe");n.style.display="none";n.name=e;n.title=e;t.insertBefore(n,t.firstChild)}else{setTimeout(function(){a(e)},5)}}}function e(n,r,o,c,s){function e(e,t,n,a){if(typeof n!=="function"){return}if(!window[r]){window[r]=[]}var i=false;if(s){i=s(e,t,n)}if(!i){window[r].push({command:e,parameter:t,callback:n,version:a})}}e.stub=true;function t(a){if(!window[n]||window[n].stub!==true){return}if(!a.data){return}var i=typeof a.data==="string";var e;try{e=i?JSON.parse(a.data):a.data}catch(t){return}if(e[o]){var r=e[o];window[n](r.command,r.parameter,function(e,t){var n={};n[c]={returnValue:e,success:t,callId:r.callId};a.source.postMessage(i?JSON.stringify(n):n,"*")},r.version)}}if(typeof window[n]!=="function"){window[n]=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}}e("__tcfapi","__tcfapiBuffer","__tcfapiCall","__tcfapiReturn");a("__tcfapiLocator");(function(e){var t=document.createElement("script");t.id="spcloader";t.type="text/javascript";t.async=true;t.src="https://sdk.privacy-center.org/"+e+"/loader.js?"+loaderParams;t.charset="utf-8";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)})(apiKey)})();
+      (function(){function a(e){if(!window.frames[e]){if(document.body&&document.body.firstChild){var t=document.body;var n=document.createElement("iframe");n.style.display="none";n.name=e;n.title=e;t.insertBefore(n,t.firstChild)}else{setTimeout(function(){a(e)},5)}}}function e(n,r,o,c,s){function e(e,t,n,a){if(typeof n!=="function"){return}if(!window[r]){window[r]=[]}var i=false;if(s){i=s(e,t,n)}if(!i){window[r].push({command:e,parameter:t,callback:n,version:a})}}e.stub=true;function t(a){if(!window[n]||window[n].stub!==true){return}if(!a.data){return}var i=typeof a.data==="string";var e;try{e=i?JSON.parse(a.data):a.data}catch(t){return}if(e[o]){var r=e[o];window[n](r.command,r.parameter,function(e,t){var n={};n[c]={returnValue:e,success:t,callId:r.callId};a.source.postMessage(i?JSON.stringify(n):n,"*")},r.version)}}if(typeof window[n]!=="function"){window[n]=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}}e("__tcfapi","__tcfapiBuffer","__tcfapiCall","__tcfapiReturn");a("__tcfapiLocator");(function(e){var t=document.createElement("script");t.id="spcloader";t.type="text/javascript";t.async=true;t.src=src+e+"/loader.js?"+loaderParams;t.charset="utf-8";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n)})(apiKey)})();
     } else {
       // TCF v1
-      (function(){function r(){if(!window.frames.__cmpLocator){if(document.body&&document.body.firstChild){var e=document.body;var t=document.createElement("iframe");t.style.display="none";t.name="__cmpLocator";t.title="cmpLocator";e.insertBefore(t,e.firstChild)}else{setTimeout(r,5)}}}function e(e,t,r){if(typeof r!=="function"){return}if(!window.__cmpBuffer){window.__cmpBuffer=[]}if(e==="ping"){r({gdprAppliesGlobally:window.gdprAppliesGlobally,cmpLoaded:false},true)}else{window.__cmpBuffer.push({command:e,parameter:t,callback:r})}}e.stub=true;function t(a){if(!window.__cmp||window.__cmp.stub!==true){return}if(!a.data){return}var n=typeof a.data==="string";var e;try{e=n?JSON.parse(a.data):a.data}catch(t){return}if(e.__cmpCall){var o=e.__cmpCall;window.__cmp(o.command,o.parameter,function(e,t){var r={__cmpReturn:{returnValue:e,success:t,callId:o.callId}};a.source.postMessage(n?JSON.stringify(r):r,"*")})}}if(typeof window.__cmp!=="function"){window.__cmp=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}r()})();(function(e){var t=e?e+"/":"";var r=document.createElement("script");r.id="spcloader";r.type="text/javascript";r.async=true;r.src="https://sdk.privacy-center.org/"+t+"loader.js?"+loaderParams;r.charset="utf-8";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a)})(apiKey);
+      (function(){function r(){if(!window.frames.__cmpLocator){if(document.body&&document.body.firstChild){var e=document.body;var t=document.createElement("iframe");t.style.display="none";t.name="__cmpLocator";t.title="cmpLocator";e.insertBefore(t,e.firstChild)}else{setTimeout(r,5)}}}function e(e,t,r){if(typeof r!=="function"){return}if(!window.__cmpBuffer){window.__cmpBuffer=[]}if(e==="ping"){r({gdprAppliesGlobally:window.gdprAppliesGlobally,cmpLoaded:false},true)}else{window.__cmpBuffer.push({command:e,parameter:t,callback:r})}}e.stub=true;function t(a){if(!window.__cmp||window.__cmp.stub!==true){return}if(!a.data){return}var n=typeof a.data==="string";var e;try{e=n?JSON.parse(a.data):a.data}catch(t){return}if(e.__cmpCall){var o=e.__cmpCall;window.__cmp(o.command,o.parameter,function(e,t){var r={__cmpReturn:{returnValue:e,success:t,callId:o.callId}};a.source.postMessage(n?JSON.stringify(r):r,"*")})}}if(typeof window.__cmp!=="function"){window.__cmp=e;if(window.addEventListener){window.addEventListener("message",t,false)}else{window.attachEvent("onmessage",t)}}r()})();(function(e){var t=e?e+"/":"";var r=document.createElement("script");r.id="spcloader";r.type="text/javascript";r.async=true;r.src=src+t+"loader.js?"+loaderParams;r.charset="utf-8";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a)})(apiKey);
     }
   }
 
-  componentDidMount() {
-    this.init();
+  React.useEffect(() => {
+    init();
 
-    if(this.props.onReady) {
+    if(onReady) {
       window.didomiOnReady = window.didomiOnReady || [];
-      window.didomiOnReady.push(this.didomiOnReady.bind(this));
+      window.didomiOnReady.push(handleDidomiOnReady);
     }
-  }
+  }, []) 
 
-  render() {
-    return null;
-  }
-};
+  return null;
+}
+
+DidomiSDK.propTypes = {
+  apiKey: PropTypes.string,
+  iabVersion: PropTypes.number,
+  noticeId: PropTypes.string,
+  config: PropTypes.object,
+  gdprAppliesGlobally: PropTypes.bool,
+  onReady: PropTypes.func,
+  onConsentChanged: PropTypes.func,
+  onNoticeShown: PropTypes.func,
+  onNoticeHidden: PropTypes.func,
+  onNoticeBackdropclick: PropTypes.func,
+  onNoticeClickAgree: PropTypes.func,
+  onNoticeClickMoreInfo: PropTypes.func,
+  onPreferencesClickAgreeToAll: PropTypes.func,
+  onPreferencesClickDisagreeToAll: PropTypes.func,
+  onPreferencesClickPurposeAgree: PropTypes.func,
+  onPreferencesClickPurposeDisagree: PropTypes.func,
+  onPreferencesClickViewVendors: PropTypes.func,
+  onPreferencesClickSaveChoices: PropTypes.func,
+  onPreferencesClickVendorAgree: PropTypes.func,
+  onPreferencesClickVendorDisagree: PropTypes.func,
+  onPreferencesClickVendorSaveChoices: PropTypes.func,
+  src: PropTypes.string
+}
 
 export { DidomiSDK }
