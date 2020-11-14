@@ -31,12 +31,12 @@
     "react-dom": "^16.5.2"
   },
   "author": "Didomi",
-  "homepage": "https://www.didomi.io/fr/",
+  "homepage": "https://www.didomi.io/",
   "license": "MIT",
   "keywords": [
     "didomi",
     "sdk",
-    "dgpr",
+    "gdpr",
     "react"
   ],
   "repository": {
