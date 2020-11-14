@@ -2,30 +2,205 @@ import expect from 'expect';
 import React from 'react';
 import { render } from 'react-dom';
 
-import { DidomiSDK } from 'src/'
+import { DidomiSDK } from 'src/';
 
-describe('DidomiSDK', () => {
-  it('loads and initializes the Didomi SDK', async () => {
-    const div = document.createElement('div');
-    div.id = 'test';
-    document.querySelector('body').appendChild(div);
-    
-    const sdkInstance = <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />;
-
-    render(sdkInstance, div);
-
-    expect(sdkInstance).toExist();
-
-    const sdkScript = document.querySelector('script[id="spcloader"]');
-    expect(sdkScript).toExist();
-    expect(sdkScript.src).toEqual('https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost');
-
-    // Ensuring that no error is thrown when a message with invalid JSON is sent to the window
-    window.postMessage('test', '*');
-
-    return new Promise((resolve) => {
-      window.didomiOnReady = window.didomiOnReady || [];
-      window.didomiOnReady.push(resolve);
-    });
+/**
+ * Wait for the SDK to be ready
+ */
+function sdkReady() {
+  return new Promise((resolve) => {
+    window.didomiOnReady = window.didomiOnReady || [];
+    window.didomiOnReady.push(resolve);
   });
-})
+}
+
+/**
+ * Clean up global objects created by the SDK
+ */
+beforeEach(() => {
+  delete window.didomiOnReady;
+  delete window.didomiEventListeners;
+  delete window.Didomi;
+  delete window.didomiConfig;
+  delete window.__tcfapi;
+  delete window.__cmp;
+  delete window.gdprAppliesGlobally;
+});
+
+it('loads and initializes the Didomi SDK (TCFv2)', async () => {
+  render(
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={2} />,
+    document.body.appendChild(document.createElement('iframe')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+  );
+
+  expect(typeof window.__tcfapi).toEqual('function');
+});
+
+it('loads the Didomi SDK from a specific SDK path (TCFv2)', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={2}
+      sdkPath="https://sdk.staging.privacy-center.org/"
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+  );
+});
+
+it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={2}
+      noticeId="noticeId"
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId',
+  );
+});
+
+it('loads and initializes the Didomi SDK (TCFv1)', async () => {
+  render(
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={1} />,
+    document.body.appendChild(document.createElement('iframe')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+  );
+
+  expect(typeof window.__cmp).toEqual('function');
+});
+
+it('loads the Didomi SDK from a specific SDK path (TCFv1)', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={1}
+      sdkPath="https://sdk.staging.privacy-center.org/"
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+  );
+});
+
+it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={1}
+      noticeId="noticeId"
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId',
+  );
+});
+
+it('calls onReady', async () => {
+  let ready = false;
+  const onReady = () => (ready = true);
+
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      onReady={onReady}
+    />,
+    document.body.appendChild(document.createElement('iframe')),
+  );
+
+  await sdkReady();
+  expect(ready).toEqual(true);
+});
+
+it('sets the didomiConfig', async () => {
+  const didomiConfig = {
+    key: 'value',
+  };
+
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      config={didomiConfig}
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  expect(window.didomiConfig).toEqual(didomiConfig);
+});
+
+it('sets gdprAppliesGlobally to true', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      gdprAppliesGlobally={true}
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  expect(window.gdprAppliesGlobally).toEqual(true);
+});
+
+it('sets gdprAppliesGlobally to false', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      gdprAppliesGlobally={false}
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  expect(window.gdprAppliesGlobally).toEqual(false);
+});
