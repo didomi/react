@@ -150,6 +150,9 @@ const DidomiSDK = ({
     let gdprAppliesGlobally = gdprAppliesGloballyProp === false ? false : true;
     window.didomiConfig = config || {};
 
+    // Set the SDK path
+    window.didomiConfig.sdkPath = sdkPath;
+
     // Embed the Didomi SDK on the page
     window.gdprAppliesGlobally=gdprAppliesGlobally;
     if(noticeId) {

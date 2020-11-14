@@ -63,6 +63,10 @@ it('loads the Didomi SDK from a specific SDK path (TCFv2)', async () => {
   expect(sdkScript.src).toEqual(
     'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
   );
+
+  expect(window.didomiConfig.sdkPath).toEqual(
+    'https://sdk.staging.privacy-center.org/',
+  );
 });
 
 it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
@@ -120,6 +124,10 @@ it('loads the Didomi SDK from a specific SDK path (TCFv1)', async () => {
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
     'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+  );
+
+  expect(window.didomiConfig.sdkPath).toEqual(
+    'https://sdk.staging.privacy-center.org/',
   );
 });
 
