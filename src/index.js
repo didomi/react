@@ -7,126 +7,140 @@ const DidomiSDK = ({
   noticeId =  null,
   config =  {},
   gdprAppliesGlobally: gdprAppliesGloballyProp =  true,
-  onReady =  () => {},
-  onConsentChanged =  () => {},
-  onNoticeShown =  () => {},
-  onNoticeHidden =  () => {},
-  onNoticeBackdropclick =  () => {},
-  onNoticeClickAgree =  () => {},
-  onNoticeClickMoreInfo =  () => {},
-  onPreferencesClickAgreeToAll =  () => {},
-  onPreferencesClickDisagreeToAll =  () => {},
-  onPreferencesClickPurposeAgree =  () => {},
-  onPreferencesClickPurposeDisagree =  () => {},
-  onPreferencesClickViewVendors =  () => {},
-  onPreferencesClickSaveChoices =  () => {},
-  onPreferencesClickVendorAgree =  () => {},
-  onPreferencesClickVendorDisagree =  () => {},
-  onPreferencesClickVendorSaveChoices =  () => {},
+  onReady,
+  onConsentChanged,
+  onNoticeShown,
+  onNoticeHidden,
+  onNoticeBackdropclick,
+  onNoticeClickAgree,
+  onNoticeClickMoreInfo,
+  onPreferencesClickAgreeToAll,
+  onPreferencesClickDisagreeToAll,
+  onPreferencesClickPurposeAgree,
+  onPreferencesClickPurposeDisagree,
+  onPreferencesClickViewVendors,
+  onPreferencesClickSaveChoices,
+  onPreferencesClickVendorAgree,
+  onPreferencesClickVendorDisagree,
+  onPreferencesClickVendorSaveChoices,
   sdkPath = "https://sdk.privacy-center.org/"
 }) => {
- 
   /**
-   * Called once the Didomi SDK is ready and loaded
-   * @param {*} Didomi
+   * Set all the Didomi event listeners from the props
    */
-  const handleDidomiOnReady = (Didomi) => {
-    onReady(Didomi)
-    setEvents(Didomi);
-  }
+  const setEvents = () => {
+    if(onReady) {
+      window.didomiOnReady = window.didomiOnReady || [];
+      window.didomiOnReady.push(onReady);
+    }
 
-  /**
-   * Set all the Didomi events the return the callbacks from the props
-   * @param {*} Didomi
-   */
-  const setEvents = (Didomi) => {
+    window.didomiEventListeners = window.didomiEventListeners || [];
+
     if(onConsentChanged) {
-      Didomi.on('consent.changed', e => {
-        onConsentChanged(e.consentToken)
-      })
+      window.didomiEventListeners.push({
+        event: 'consent.changed',
+        listener: e => {
+          onConsentChanged(e.consentToken)
+        }
+      }); 
     }
 
     if(onNoticeShown) {
-      Didomi.on('notice.shown', e => {
-        onNoticeShown()
-      })
+      window.didomiEventListeners.push({
+        event: 'notice.shown',
+        listener: () => onNoticeShown()
+      });
     }
 
     if(onNoticeHidden) {
-      Didomi.on('notice.hidden', e => {
-        onNoticeHidden()
-      })
+      window.didomiEventListeners.push({
+        event: 'notice.hidden',
+        listener: () => onNoticeHidden()
+      });
     }
 
     if(onNoticeBackdropclick) {
-      Didomi.on('notice.backdropclick', e => {
-        onNoticeBackdropclick()
-      })
+      window.didomiEventListeners.push({
+        event: 'notice.backdropclick',
+        listener: () => onNoticeBackdropclick()
+      });
     }
 
     if(onNoticeClickAgree) {
-      Didomi.on('notice.clickagree', e => {
-        onNoticeClickAgree()
-      })
+      window.didomiEventListeners.push({
+        event: 'notice.clickagree',
+        listener: () => onNoticeClickAgree()
+      });
     }
 
     if(onNoticeClickMoreInfo) {
-      Didomi.on('notice.clickmoreinfo', e => {
-        onNoticeClickMoreInfo()
-      })
+      window.didomiEventListeners.push({
+        event: 'notice.clickmoreinfo',
+        listener: () => onNoticeClickMoreInfo()
+      });
     }
 
     if(onPreferencesClickAgreeToAll) {
-      Didomi.on('preferences.clickagreetoall', e => {
-        onPreferencesClickAgreeToAll()
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickagreetoall',
+        listener: () => onPreferencesClickAgreeToAll()
+      });
     }
 
     if(onPreferencesClickDisagreeToAll) {
-      Didomi.on('preferences.clickdisagreetoall', e => {
-        onPreferencesClickDisagreeToAll()
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickdisagreetoall',
+        listener: () => onPreferencesClickDisagreeToAll()
+      });
     }
+
     if(onPreferencesClickPurposeAgree) {
-      Didomi.on('preferences.clickpurposeagree', e => {
-        onPreferencesClickPurposeAgree(e.purposeId)
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickpurposeagree',
+        listener: () => onPreferencesClickPurposeAgree()
+      });
     }
 
     if(onPreferencesClickPurposeDisagree) {
-      Didomi.on('preferences.clickpurposedisagree', e => {
-        onPreferencesClickPurposeDisagree(e.purposeId)
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickpurposedisagree',
+        listener: () => onPreferencesClickPurposeDisagree()
+      });
     }
 
     if(onPreferencesClickViewVendors) {
-      Didomi.on('preferences.clickviewvendors', e => {
-        onPreferencesClickViewVendors()
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickviewvendors',
+        listener: () => onPreferencesClickViewVendors()
+      });
     }
 
     if(onPreferencesClickSaveChoices) {
-      Didomi.on('preferences.clicksavechoices', e => {
-        onPreferencesClickSaveChoices()
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clicksavechoices',
+        listener: () => onPreferencesClickSaveChoices()
+      });
     }
 
     if(onPreferencesClickVendorAgree) {
-      Didomi.on('preferences.clickvendoragree', e => {
-        onPreferencesClickVendorAgree(e.vendorId)
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickvendoragree',
+        listener: () => onPreferencesClickVendorAgree()
+      });
     }
 
     if(onPreferencesClickVendorDisagree) {
-      Didomi.on('preferences.clickvendordisagree', e => {
-        onPreferencesClickVendorDisagree(e.vendorId)
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickvendordisagree',
+        listener: () => onPreferencesClickVendorDisagree()
+      });
     }
 
     if(onPreferencesClickVendorSaveChoices) {
-      Didomi.on('preferences.clickvendorsavechoices', e => {
-        onPreferencesClickVendorSaveChoices()
-      })
+      window.didomiEventListeners.push({
+        event: 'preferences.clickvendorsavechoices',
+        listener: () => onPreferencesClickVendorSaveChoices()
+      });
     }
   }
 
@@ -171,12 +185,8 @@ const DidomiSDK = ({
   }
 
   React.useEffect(() => {
+    setEvents();
     init();
-
-    if(onReady) {
-      window.didomiOnReady = window.didomiOnReady || [];
-      window.didomiOnReady.push(handleDidomiOnReady);
-    }
   }, []) 
 
   return null;

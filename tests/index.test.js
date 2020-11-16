@@ -167,6 +167,33 @@ it('calls onReady', async () => {
   expect(ready).toEqual(true);
 });
 
+it('calls onNoticeShown', (done) => {
+  const eventHandler = () => {
+    done();
+  };
+
+  const config = {
+    app: {
+      vendors: {
+        iab: {
+          enabled: true,
+          all: true,
+        },
+      },
+    },
+  };
+
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      config={config}
+      gdprAppliesGlobally={true}
+      onNoticeShown={eventHandler}
+    />,
+    document.body.appendChild(document.createElement('iframe')),
+  );
+});
+
 it('sets the didomiConfig', async () => {
   const didomiConfig = {
     key: 'value',
