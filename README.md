@@ -35,6 +35,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
+  tcfEnabled={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -84,6 +85,7 @@ const didomiConfig = {
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
+  tcfEnabled={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -153,6 +155,12 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>string</td>
       <td>https://sdk.privacy-center.org/</td>
       <td>Path to load the SDK from. This can be used to load the Didomi SDK from your own custom domain after <a href="https://developers.didomi.io/cmp/web-sdk/self-hosting">setting up a reverse proxy</a>. The property must start with <code>http://</code>, <code>https://</code>, or <code>//</code>. It must also end with a final <code>/</code>.</td>
+    </tr>
+    <tr>
+      <td>tcfEnabled</td>
+      <td>boolean</td>
+      <td><code>true</code></td>
+      <td>Define whether the IAB TCF is enabled for the notice. This property also defines whether the TCF stub should be embedded on the page. This property overrides any value defined in an inline config or the Didomi Console.</td>
     </tr>
     <tr>
       <td>onReady</td>
