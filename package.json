@@ -22,7 +22,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "16.x"
+    "react": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
     "envsub": "^3.1.0",
