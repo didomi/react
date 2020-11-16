@@ -239,3 +239,143 @@ it('sets gdprAppliesGlobally to false', async () => {
 
   expect(window.gdprAppliesGlobally).toEqual(false);
 });
+
+describe('TCF stub', () => {
+  it('embeds the TCF stub if the tcfEnabled prop is not provided (TCFv2)', async function () {
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={2}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(typeof window.__cmp).toEqual('undefined');
+  });
+
+  it('embeds the TCF stub if the tcfEnabled prop is true (TCFv2)', async function () {
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={2}
+        tcfEnabled={true}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(typeof window.__cmp).toEqual('undefined');
+  });
+
+  it('embeds the TCF stub if the tcfEnabled prop is not provided (TCFv1)', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            version: 1,
+          },
+        },
+      },
+    };
+
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={1}
+        config={config}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__cmp).toEqual('function');
+    expect(typeof window.__tcfapi).toEqual('undefined');
+  });
+
+  it('embeds the TCF stub if the tcfEnabled prop is true (TCFv1)', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            version: 1,
+          },
+        },
+      },
+    };
+
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={1}
+        tcfEnabled={true}
+        config={config}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__cmp).toEqual('function');
+    expect(typeof window.__tcfapi).toEqual('undefined');
+  });
+
+  it('does not embed the TCF stub if tcfEnabled prop is set to false', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={2}
+        tcfEnabled={false}
+        config={config}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(window.__tcfapi).toEqual(undefined);
+    expect(window.__cmp).toEqual(undefined);
+  });
+
+  it('does not embed the TCF stub if config is set to false', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={2}
+        tcfEnabled={true}
+        config={config}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(window.__tcfapi).toEqual(undefined);
+    expect(window.__cmp).toEqual(undefined);
+  });
+});
