@@ -111,6 +111,7 @@ declare namespace DidomiReact {
     noticeId?: string;
     config?: IDidomiConfig;
     gdprAppliesGlobally?: boolean;
+    sdkPath?: string;
     onReady?: OnReadyFunction;
     onConsentChanged?: OnConsentChangedFunction;
     onNoticeShown?(): any;

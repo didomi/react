@@ -22,21 +22,21 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "16.x"
+    "react": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
     "envsub": "^3.1.0",
     "nwb": "0.23.x",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "author": "Didomi",
-  "homepage": "https://www.didomi.io/fr/",
+  "homepage": "https://www.didomi.io/",
   "license": "MIT",
   "keywords": [
     "didomi",
     "sdk",
-    "dgpr",
+    "gdpr",
     "react"
   ],
   "repository": {

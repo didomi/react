@@ -34,6 +34,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
   iabVersion={2} // If you want to support the TCF v1∏, don't forget to change this value, even if you selected the TCF v2 in the console. This parameter will load the correct stub in the React Component
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
+  sdkPath="https://sdk.privacy-center.org/"
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -82,6 +83,7 @@ const didomiConfig = {
   iabVersion={2} // If you want to support the TCF v1, don't forget to change this value. This parameter will load the correct stub in the React Component
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
+  sdkPath="https://sdk.privacy-center.org/"
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -145,6 +147,12 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>true</td>
       <td>The banner should display to all users no matter where they are located. If you are a non EU-based company then you are only required to collect consent and show the banner to EU visitors and can configure the banner to do so by changing the  gdprAppliesGlobally variable to false in the tag above (that variable is separate from the window.didomiConfig variable).<br>
       Please note that if you are an EU-based company then you must collect consent and display the banner to all visitors, no matter where they are from.</td>
+    </tr>
+    <tr>
+      <td>sdkPath</td>
+      <td>string</td>
+      <td>https://sdk.privacy-center.org/</td>
+      <td>Path to load the SDK from. This can be used to load the Didomi SDK from your own custom domain after <a href="https://developers.didomi.io/cmp/web-sdk/self-hosting">setting up a reverse proxy</a>. The property must start with <code>http://</code>, <code>https://</code>, or <code>//</code>. It must also end with a final <code>/</code>.</td>
     </tr>
     <tr>
       <td>onReady</td>
