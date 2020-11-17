@@ -241,47 +241,65 @@ it('sets gdprAppliesGlobally to false', async () => {
 });
 
 describe('TCF stub', () => {
-  it('embeds the TCF stub if the tcfEnabled prop is not provided (TCFv2)', async function () {
-    render(
-      <DidomiSDK
-        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={2}
-      />,
-      document.body.appendChild(document.createElement('iframe')),
-    );
-
-    await sdkReady();
-
-    expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
-
-    expect(window.didomiConfig.app.vendors.iab.enabled).toEqual(true);
-  });
-
-  it('embeds the TCF stub if the tcfEnabled prop is true (TCFv2)', async function () {
-    render(
-      <DidomiSDK
-        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={2}
-        tcfEnabled={true}
-      />,
-      document.body.appendChild(document.createElement('iframe')),
-    );
-
-    await sdkReady();
-
-    expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
-
-    expect(window.didomiConfig.app.vendors.iab.enabled).toEqual(true);
-  });
-
-  it('embeds the TCF stub if the tcfEnabled prop is not provided (TCFv1)', async function () {
+  it('embeds the TCF stub if the embedTCFStub prop is not provided (TCFv2)', async function () {
     const config = {
       app: {
         vendors: {
           iab: {
-            version: 1,
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={2}
+        config={config}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(typeof window.__cmp).toEqual('undefined');
+  });
+
+  it('embeds the TCF stub if the embedTCFStub prop is true (TCFv2)', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        iabVersion={2}
+        embedTCFStub={true}
+        config={config}
+      />,
+      document.body.appendChild(document.createElement('iframe')),
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(typeof window.__cmp).toEqual('undefined');
+  });
+
+  it('embeds the TCF stub if the embedTCFStub prop is not provided (TCFv1)', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
           },
         },
       },
@@ -300,16 +318,14 @@ describe('TCF stub', () => {
 
     expect(typeof window.__cmp).toEqual('function');
     expect(typeof window.__tcfapi).toEqual('undefined');
-
-    expect(window.didomiConfig.app.vendors.iab.enabled).toEqual(true);
   });
 
-  it('embeds the TCF stub if the tcfEnabled prop is true (TCFv1)', async function () {
+  it('embeds the TCF stub if the embedTCFStub prop is true (TCFv1)', async function () {
     const config = {
       app: {
         vendors: {
           iab: {
-            version: 1,
+            enabled: false,
           },
         },
       },
@@ -319,7 +335,7 @@ describe('TCF stub', () => {
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={1}
-        tcfEnabled={true}
+        embedTCFStub={true}
         config={config}
       />,
       document.body.appendChild(document.createElement('iframe')),
@@ -329,16 +345,14 @@ describe('TCF stub', () => {
 
     expect(typeof window.__cmp).toEqual('function');
     expect(typeof window.__tcfapi).toEqual('undefined');
-
-    expect(window.didomiConfig.app.vendors.iab.enabled).toEqual(true);
   });
 
-  it('does not embed the TCF stub if tcfEnabled prop is set to false', async function () {
+  it('does not embed the TCF stub if embedTCFStub prop is set to false', async function () {
     const config = {
       app: {
         vendors: {
           iab: {
-            enabled: true,
+            enabled: false,
           },
         },
       },
@@ -348,7 +362,7 @@ describe('TCF stub', () => {
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={2}
-        tcfEnabled={false}
+        embedTCFStub={false}
         config={config}
       />,
       document.body.appendChild(document.createElement('iframe')),
@@ -358,7 +372,5 @@ describe('TCF stub', () => {
 
     expect(window.__tcfapi).toEqual(undefined);
     expect(window.__cmp).toEqual(undefined);
-
-    expect(window.didomiConfig.app.vendors.iab.enabled).toEqual(false);
   });
 });
