@@ -18,7 +18,7 @@ $ npm install --save @didomi/react
 import { DidomiSDK } from '@didomi/react';
 ```
 
-We recommend instantiating the `DidomiSDK` component as early as possible in your React application.    
+We recommend instantiating the `DidomiSDK` component as early as possible in your React application.
 The sooner you instantiate the component, the faster the banner will be displayed or the faster the consents will be shared with your partners and the ads displayed.
 
 ## Create the DidomiSDK component
@@ -35,6 +35,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
+  embedTCFStub={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -84,6 +85,7 @@ const didomiConfig = {
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
+  embedTCFStub={true}
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -153,6 +155,12 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>string</td>
       <td>https://sdk.privacy-center.org/</td>
       <td>Path to load the SDK from. This can be used to load the Didomi SDK from your own custom domain after <a href="https://developers.didomi.io/cmp/web-sdk/self-hosting">setting up a reverse proxy</a>. The property must start with <code>http://</code>, <code>https://</code>, or <code>//</code>. It must also end with a final <code>/</code>.</td>
+    </tr>
+    <tr>
+      <td>embedTCFStub</td>
+      <td>boolean</td>
+      <td><code>true</code></td>
+      <td>Define whether the IAB TCF stub is embedded on the page before loading the SDK. If your consent notice uses the IAB TCF, we recommend embedding the IAB TCF stub to optimize the communication with vendors.</td>
     </tr>
     <tr>
       <td>onReady</td>
@@ -488,7 +496,7 @@ class DidomiDemo extends Component {
   }
 }
   ```
- 
+
 ## Customize the notice
 
 You can use your own custom notice to replace the standard Didomi SDK notices (banner or popup). This option keeps some native behaviors like the position of the notice, the backdrop (for the popup notice) or the logic to decide when to display the notice.
@@ -525,8 +533,8 @@ class NoticeHTML extends Component {
 }
 
 const didomiConfig = {
-  app: {    
-    apiKey: '<Your API key>',        
+  app: {
+    apiKey: '<Your API key>',
     notice: {
       content: {
         html: {
@@ -552,8 +560,8 @@ You can do everything through HTML:
 
   ```js
   const didomiConfig = {
-  app: {    
-    apiKey: '<Your API key>',        
+  app: {
+    apiKey: '<Your API key>',
     notice: {
       content: {
         html: {
@@ -568,7 +576,7 @@ You can do everything through HTML:
 
 <DidomiSDK config={didomiConfig}/>
   ```
- 
+
 ### Didomi SDK Documentation
 
 See [Documentation](https://developers.didomi.io/cmp/web-sdk)
