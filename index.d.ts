@@ -112,7 +112,7 @@ declare namespace DidomiReact {
     config?: IDidomiConfig;
     gdprAppliesGlobally?: boolean;
     sdkPath?: string;
-    tcfEnabled?: boolean;
+    embedTCFStub?: boolean;
     onReady?: OnReadyFunction;
     onConsentChanged?: OnConsentChangedFunction;
     onNoticeShown?(): any;
