@@ -17,7 +17,9 @@ function sdkReady() {
 /**
  * Clean up global objects created by the SDK
  */
-beforeEach(() => {
+beforeEach(function () {
+  this.timeout(5000);
+
   delete window.didomiOnReady;
   delete window.didomiEventListeners;
   delete window.Didomi;
