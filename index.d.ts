@@ -44,6 +44,33 @@ declare namespace DidomiReact {
     }
   }
 
+  interface IUserStatus {
+    consent_string: string,
+    created: string,
+    updated: string,
+    user_id: string,
+    purposes: {
+      consent: {
+        enabled: any[],
+        disabled: any[],
+      },
+      legitimate_interest: {
+        enabled: any[],
+        disabled: any[],
+      }
+    };
+    vendors: {
+      consent: {
+        enabled: any[],
+        disabled: any[],
+      },
+      legitimate_interest: {
+        enabled: any[],
+        disabled: any[],
+      }
+    }
+  }
+
   /**
    * Didomi Object (exported by the SDK as window.Didomi)
    */
@@ -64,7 +91,7 @@ declare namespace DidomiReact {
     getPurposes(): any;
     getRequiredPurposeIds(): any;
     getTranslationAsHTML(): any;
-    getUserStatus(): any;
+    getUserStatus(): IUserStatus;
     getUserConsentStatusForAll(): any;
     getUserConsentToken(): any;
     getVendors(): any;
