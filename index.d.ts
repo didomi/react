@@ -64,6 +64,7 @@ declare namespace DidomiReact {
     getPurposes(): any;
     getRequiredPurposeIds(): any;
     getTranslationAsHTML(): any;
+    getUserStatus(): any;
     getUserConsentStatusForAll(): any;
     getUserConsentToken(): any;
     getVendors(): any;
