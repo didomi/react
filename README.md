@@ -583,4 +583,4 @@ See [Documentation](https://developers.didomi.io/cmp/web-sdk)
 
 ### License
 
-MIT
+This plugin is [released under the BSD-3 license](LICENSE.md).
