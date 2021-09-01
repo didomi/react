@@ -20,6 +20,11 @@ function sdkReady() {
 beforeEach(function () {
   this.timeout(5000);
 
+  const didomiScripts = document.querySelectorAll('#spcloader');
+  didomiScripts.forEach(scriptTag => {
+    scriptTag.parentNode.removeChild(scriptTag)
+  })
+
   delete window.didomiOnReady;
   delete window.didomiEventListeners;
   delete window.Didomi;
