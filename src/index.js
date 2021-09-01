@@ -190,9 +190,17 @@ const DidomiSDK = ({
       }
     }
 
+    const spcloaderId = 'spcloader';
+    const spcloaderScript = document.getElementById(spcloaderId);
+
+    // Didomi is already loaded, no need to add the script again
+    if (spcloaderScript) {
+      return null;
+    }
+
     // Embed the SDK
     const loaderScript = document.createElement('script');
-    loaderScript.id = 'spcloader';
+    loaderScript.id = spcloaderId;
     loaderScript.type = 'text/javascript';
     loaderScript.async = true;
     loaderScript.src = sdkPath + apiKey + '/loader.js?' + loaderParams;
