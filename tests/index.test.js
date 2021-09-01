@@ -158,6 +158,28 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
   );
 });
 
+it('loads the Didomi SDK only one time even if component is rendered multiple times', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+    />,
+    document.body.appendChild(document.createElement('DIV'))
+  );
+
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+    />,
+    document.body.appendChild(document.createElement('DIV'))
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelectorAll('#spcloader');
+  expect(sdkScript.length).toEqual(1);
+});
+
 it('calls onReady', async () => {
   let ready = false;
   const onReady = () => (ready = true);
