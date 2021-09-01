@@ -20,6 +20,11 @@ function sdkReady() {
 beforeEach(function () {
   this.timeout(5000);
 
+  const didomiScripts = document.querySelectorAll('#spcloader');
+  didomiScripts.forEach(scriptTag => {
+    scriptTag.parentNode.removeChild(scriptTag)
+  })
+
   delete window.didomiOnReady;
   delete window.didomiEventListeners;
   delete window.Didomi;
@@ -151,6 +156,28 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
   expect(sdkScript.src).toEqual(
     'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId',
   );
+});
+
+it('loads the Didomi SDK only one time even if component is rendered multiple times', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+    />,
+    document.body.appendChild(document.createElement('DIV'))
+  );
+
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+    />,
+    document.body.appendChild(document.createElement('DIV'))
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelectorAll('#spcloader');
+  expect(sdkScript.length).toEqual(1);
 });
 
 it('calls onReady', async () => {
