@@ -92,13 +92,13 @@ declare namespace DidomiReact {
     getRequiredPurposeIds(): any;
     getTranslationAsHTML(): any;
     getUserStatus(): IUserStatus;
-    getUserConsentStatusForAll(): any;
+    getUserConsentStatusForAll(): IUserConsentStatus;
     getUserConsentToken(): any;
     getVendors(): any;
     getRequiredVendorIds(): any;
     getUserConsentStatusForVendor(vendorId: ConsentID): ConsentStatus;
     getUserConsentStatusForPurpose(purposeId: ConsentID): ConsentStatus;
-    getUserConsentStatus(purposeId: ConsentID, vendorId: ConsentID): IUserConsentStatus;
+    getUserConsentStatus(purposeId: ConsentID, vendorId: ConsentID): boolean | undefined;
     getObservableOnUserConsentStatusForVendor(vendorId: ConsentID): any;
     getPurposeById(id: ConsentID): any;
     getVendorById(id: ConsentID): any;
