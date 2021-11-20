@@ -123,7 +123,7 @@ declare namespace DidomiReact {
     [key: string]: any;
   }
 
-  export type OnConsentChangedFunction = (consentToken: string) => any;
+  export type OnConsentChangedFunction = (consentToken: any) => any;
   export type OnPreferencesClickPurposeFunction = (purposeId: string) => any;
   export type OnPreferencesClickVendorFunction = (vendorId: string) => any;
   export type OnReadyFunction = (didomi: IDidomiObject) => any;
