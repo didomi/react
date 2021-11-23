@@ -16,5 +16,6 @@ branches:
     - master
 
 script:
+  - npm run clean
   - npm run lint
   - npm test
