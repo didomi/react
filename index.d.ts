@@ -123,6 +123,10 @@ declare namespace DidomiReact {
     [key: string]: any;
   }
 
+  /**
+  * Receives a consent web token. 
+  *   See: https://github.com/didomi/cwt-node/blob/master/src/token.js
+  */
   export type OnConsentChangedFunction = (consentToken: any) => any;
   export type OnPreferencesClickPurposeFunction = (purposeId: string) => any;
   export type OnPreferencesClickVendorFunction = (vendorId: string) => any;
