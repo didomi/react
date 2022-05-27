@@ -162,7 +162,7 @@ const DidomiSDK = ({
   const init = () => {
     let loaderParams;
     let apiKey = getApiKey();
-    let gdprAppliesGlobally = gdprAppliesGloballyProp === false ? false : true;
+    let gdprAppliesGlobally = gdprAppliesGloballyProp !== false;
     window.didomiConfig = config || {};
 
     // Set the SDK path
