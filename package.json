@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "dset": "^2.0.1",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.5.7"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
