@@ -16,8 +16,8 @@
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
-    "test": "nwb test-react --timeout 5000",
-    "test:coverage": "nwb test-react --coverage --timeout 5000",
+    "test": "nwb test-react",
+    "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
     "lint": "prettier --check src/ tests/",
     "lint:fix": "prettier --write src/ tests/"
