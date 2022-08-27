@@ -16,9 +16,9 @@
     "clean": "nwb clean-module && nwb clean-demo",
     "prepublishOnly": "npm run build",
     "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server",
+    "test": "nwb -t 5000 test-react",
+    "test:coverage": "nwb -t 5000 test-react --coverage",
+    "test:watch": "nwb -t 5000 test-react --server",
     "lint": "prettier --check src/ tests/",
     "lint:fix": "prettier --write src/ tests/"
   },
