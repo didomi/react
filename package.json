@@ -23,7 +23,7 @@
     "lint:fix": "prettier --write src/ tests/"
   },
   "dependencies": {
-    "dset": "^2.0.1"
+    "dset": "3.1.2"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
