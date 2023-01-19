@@ -52,7 +52,10 @@ it('loads and initializes the Didomi SDK (TCFv2)', async () => {
   expect(typeof window.__tcfapi).toEqual('function');
 });
 
-it('loads the Didomi SDK from a specific SDK path (TCFv2)', async () => {
+// This is intentionally not an arrow function, so that the this binding is not lost and the this.timeout(10000) applies
+// Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
+it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
+  this.timeout(10000);
   render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
@@ -114,7 +117,10 @@ it('loads and initializes the Didomi SDK (TCFv1)', async () => {
   expect(typeof window.__cmp).toEqual('function');
 });
 
-it('loads the Didomi SDK from a specific SDK path (TCFv1)', async () => {
+// This is intentionally not an arrow function, so that the this binding is not lost and the this.timeout(10000) applies
+// Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
+it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
+  this.timeout(10000);
   render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
