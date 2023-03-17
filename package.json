@@ -22,6 +22,9 @@
     "lint": "prettier --check src/ tests/",
     "lint:fix": "prettier --write src/ tests/"
   },
+  "dependencies": {
+    "prop-types": "^15.8.1"
+  },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
