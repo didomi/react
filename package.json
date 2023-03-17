@@ -1,6 +1,6 @@
 {
   "name": "@didomi/react",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "didomi-react-test React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,7 +23,7 @@
     "lint:fix": "prettier --write src/ tests/"
   },
   "dependencies": {
-    "dset": "3.1.2"
+    "prop-types": "^15.8.1"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
