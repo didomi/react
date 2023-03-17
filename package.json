@@ -47,5 +47,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/didomi/react"
+  },
+  "publishConfig": {
+    "access": "public",
+    "@didomi:registry": "https://registry.npmjs.org"
   }
 }
