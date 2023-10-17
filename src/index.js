@@ -25,6 +25,7 @@ const DidomiSDK = ({
   onPreferencesClickVendorSaveChoices,
   sdkPath = 'https://sdk.privacy-center.org/',
   embedTCFStub = true,
+  platform
 }) => {
   /**
    * Set all the Didomi event listeners from the props
@@ -160,7 +161,7 @@ const DidomiSDK = ({
    * Initialize the SDK, set the config object and insert the loader.js into the DOM
    */
   const init = () => {
-    let loaderParams;
+    let loaderParams = '';
     let apiKey = getApiKey();
     let gdprAppliesGlobally = gdprAppliesGloballyProp === false ? false : true;
     window.didomiConfig = config || {};
@@ -170,11 +171,15 @@ const DidomiSDK = ({
 
     // Embed the Didomi SDK on the page
     window.gdprAppliesGlobally = gdprAppliesGlobally;
-    if (noticeId) {
-      loaderParams = `target_type=notice&target=${noticeId}`;
-    } else {
-      loaderParams = `target=${document.location.hostname}`;
+    if (platform) {
+      loaderParams += `platform=${platform}&`
     }
+    if (noticeId) {
+      loaderParams += `target_type=notice&target=${noticeId}`;
+    } else {
+      loaderParams += `target=${document.location.hostname}`;
+    }
+
 
     // Embed the TCF stub
     if (embedTCFStub) {
@@ -224,6 +229,7 @@ DidomiSDK.propTypes = {
   apiKey: PropTypes.string,
   iabVersion: PropTypes.number,
   noticeId: PropTypes.string,
+  platform: PropTypes.string,
   config: PropTypes.object,
   gdprAppliesGlobally: PropTypes.bool,
   onReady: PropTypes.func,

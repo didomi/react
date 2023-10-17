@@ -99,6 +99,27 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
   );
 });
 
+it('loads the Didomi SDK with a specific notice ID (TCFv2) and platform', async () => {
+  render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={2}
+      noticeId="noticeId"
+      platform="ctv"
+    />,
+    document.body.appendChild(document.createElement('DIV')),
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?platform=ctv?target_type=notice&target=noticeId',
+  );
+});
+
 it('loads and initializes the Didomi SDK (TCFv1)', async () => {
   render(
     <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={1} />,
