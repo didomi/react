@@ -35,40 +35,83 @@ declare namespace DidomiReact {
 
   interface IUserConsentStatus {
     purposes: {
-      enabled: any[],
-      disabled: any[],
+      enabled: number[] | string[];
+      disabled: number[] | string[];
     };
     vendors: {
-      enabled: any[],
-      disabled: any[],
-    }
+      enabled: number[] | string[];
+      disabled: number[] | string[];
+    };
   }
 
+  /**
+   * Should match: https://developers.didomi.io/cmp/web-sdk/reference/events
+   */
+  type EventType =
+    | 'api.error'
+    | 'consent.changed'
+    | 'consent.pendingchanged'
+    | 'integrations.consentpassedtodfp'
+    | 'notice.backdropclick'
+    | 'notice.clickagree'
+    | 'notice.clickclose'
+    | 'notice.clickdisagree'
+    | 'notice.clickmoreinfo'
+    | 'notice.clickviewvendors'
+    | 'notice.hidden'
+    | 'notice.shown'
+    | 'preferences.clickagreetoall'
+    | 'preferences.clickcategoryagree'
+    | 'preferences.clickcategorydisagree'
+    | 'preferences.clickclose'
+    | 'preferences.clickdisagreetoall'
+    | 'preferences.clickpurposeagree'
+    | 'preferences.clickpurposedisagree'
+    | 'preferences.clicksavechoices'
+    | 'preferences.clickvendoragree'
+    | 'preferences.clickvendordisagree'
+    | 'preferences.clickvendorsavechoices'
+    | 'preferences.clickviewvendors'
+    | 'preferences.hidden'
+    | 'preferences.shown'
+    | 'sync.ready';
+
+  /**
+   * Should match: https://developers.didomi.io/cmp/web-sdk/reference/api#getuserstatus
+   */
   interface IUserStatus {
-    consent_string: string,
-    created: string,
-    updated: string,
-    user_id: string,
+    consent_string: string;
+    created: string;
+    updated: string;
+    user_id: string;
     purposes: {
+      global: {
+        enabled: string[] | number[];
+        disabled: string[] | number[];
+      };
       consent: {
-        enabled: any[],
-        disabled: any[],
-      },
+        enabled: string[] | number[];
+        disabled: string[] | number[];
+      };
       legitimate_interest: {
-        enabled: any[],
-        disabled: any[],
-      }
+        enabled: string[] | number[];
+        disabled: string[] | number[];
+      };
     };
     vendors: {
+      global: {
+        enabled: string[] | number[];
+        disabled: string[] | number[];
+      };
       consent: {
-        enabled: any[],
-        disabled: any[],
-      },
+        enabled: string[] | number[];
+        disabled: string[] | number[];
+      };
       legitimate_interest: {
-        enabled: any[],
-        disabled: any[],
-      }
-    }
+        enabled: string[] | number[];
+        disabled: string[] | number[];
+      };
+    };
   }
 
   /**
@@ -76,7 +119,7 @@ declare namespace DidomiReact {
    */
   export interface IDidomiObject {
     version: string;
-    on(event: string, eventHandler: Function): void;
+    on(event: EventType, eventHandler: Function): void;
 
     preferences: IPreferencesObject;
     notice: INoticeObject;
@@ -98,7 +141,10 @@ declare namespace DidomiReact {
     getRequiredVendorIds(): any;
     getUserConsentStatusForVendor(vendorId: ConsentID): ConsentStatus;
     getUserConsentStatusForPurpose(purposeId: ConsentID): ConsentStatus;
-    getUserConsentStatus(purposeId: ConsentID, vendorId: ConsentID): boolean | undefined;
+    getUserConsentStatus(
+      purposeId: ConsentID,
+      vendorId: ConsentID,
+    ): boolean | undefined;
     getObservableOnUserConsentStatusForVendor(vendorId: ConsentID): any;
     getPurposeById(id: ConsentID): any;
     getVendorById(id: ConsentID): any;
@@ -109,7 +155,11 @@ declare namespace DidomiReact {
     setUserDisagreeToAll(): void;
     setUserAgreeToAll(): void;
     setConfigParameter(param: any, value: any): void;
-    setUserConsentStatus(purposeId: ConsentID, vendorId: ConsentID, value: any): void;
+    setUserConsentStatus(
+      purposeId: ConsentID,
+      vendorId: ConsentID,
+      value: any,
+    ): void;
 
     isConsentRequired(): boolean;
     isUserConsentStatusPartial(): boolean;
@@ -124,15 +174,17 @@ declare namespace DidomiReact {
   }
 
   /**
-  * Receives a consent web token. 
-  *   See: https://github.com/didomi/cwt-node/blob/master/src/token.js
-  */
+   * Receives a consent web token.
+   *   See: https://github.com/didomi/cwt-node/blob/master/src/token.js
+   */
   export type OnConsentChangedFunction = (consentToken: any) => any;
   export type OnPreferencesClickPurposeFunction = (purposeId: string) => any;
   export type OnPreferencesClickVendorFunction = (vendorId: string) => any;
   export type OnReadyFunction = (didomi: IDidomiObject) => any;
   // Force an object type for didomiConfig
-  interface IDidomiConfig { [key: string]: any; }
+  interface IDidomiConfig {
+    [key: string]: any;
+  }
 
   /**
    * Didomi SDK Component Props (React)
