@@ -12,7 +12,7 @@ declare namespace DidomiReact {
   type ConsentStatus = boolean | undefined;
 
   interface IPreferencesObject {
-    show(): void;
+    show(view?: 'information' | 'purposes' | 'vendors'): void;
     hide(): void;
     isVisible(): boolean;
   }
