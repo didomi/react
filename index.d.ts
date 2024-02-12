@@ -193,6 +193,7 @@ declare namespace DidomiReact {
     apiKey?: string;
     iabVersion?: number;
     noticeId?: string;
+    platform?: string;
     config?: IDidomiConfig;
     gdprAppliesGlobally?: boolean;
     sdkPath?: string;

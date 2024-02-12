@@ -5,6 +5,7 @@ const DidomiSDK = ({
   apiKey: apiKeyProp = null,
   iabVersion = 2,
   noticeId = null,
+  platform = null,
   config = {},
   gdprAppliesGlobally: gdprAppliesGloballyProp = true,
   onReady,
@@ -172,6 +173,9 @@ const DidomiSDK = ({
     window.gdprAppliesGlobally = gdprAppliesGlobally;
     if (noticeId) {
       loaderParams = `target_type=notice&target=${noticeId}`;
+      if (platform) {
+        loaderParams = `platform=${platform}&${loaderParams}`;
+      }
     } else {
       loaderParams = `target=${document.location.hostname}`;
     }
@@ -224,6 +228,7 @@ DidomiSDK.propTypes = {
   apiKey: PropTypes.string,
   iabVersion: PropTypes.number,
   noticeId: PropTypes.string,
+  platform: PropTypes.string,
   config: PropTypes.object,
   gdprAppliesGlobally: PropTypes.bool,
   onReady: PropTypes.func,
