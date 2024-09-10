@@ -1,6 +1,6 @@
 import expect from 'expect';
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { DidomiSDK } from 'src/';
 
@@ -13,6 +13,8 @@ function sdkReady() {
     window.didomiOnReady.push(resolve);
   });
 }
+
+let root;
 
 /**
  * Clean up global objects created by the SDK
@@ -35,9 +37,11 @@ beforeEach(function () {
 });
 
 it('loads and initializes the Didomi SDK (TCFv2)', async () => {
-  render(
-    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={2} />,
+  root = createRoot(
     document.body.appendChild(document.createElement('iframe')),
+  );
+  root.render(
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={2} />,
   );
 
   await sdkReady();
@@ -56,13 +60,13 @@ it('loads and initializes the Didomi SDK (TCFv2)', async () => {
 // Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
 it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
   this.timeout(10000);
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={2}
       sdkPath="https://sdk.staging.privacy-center.org/"
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -80,13 +84,13 @@ it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
 });
 
 it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={2}
       noticeId="noticeId"
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -100,14 +104,14 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
 });
 
 it('loads the Didomi SDK with a specific platform (CTV)', async () => {
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={2}
       noticeId="noticeId"
       platform="ctv"
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -121,9 +125,11 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
 });
 
 it('loads and initializes the Didomi SDK (TCFv1)', async () => {
-  render(
-    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={1} />,
+  root = createRoot(
     document.body.appendChild(document.createElement('iframe')),
+  );
+  root.render(
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={1} />,
   );
 
   await sdkReady();
@@ -142,13 +148,13 @@ it('loads and initializes the Didomi SDK (TCFv1)', async () => {
 // Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
 it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
   this.timeout(10000);
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={1}
       sdkPath="https://sdk.staging.privacy-center.org/"
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -166,13 +172,13 @@ it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
 });
 
 it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={1}
       noticeId="noticeId"
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -186,14 +192,14 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
 });
 
 it('loads the Didomi SDK with a specific platform (CTV)', async () => {
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={1}
       noticeId="noticeId"
       platform="ctv"
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -207,15 +213,11 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
 });
 
 it('loads the Didomi SDK only one time even if component is rendered multiple times', async () => {
-  render(
-    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />,
-    document.body.appendChild(document.createElement('DIV')),
-  );
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(<DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />);
 
-  render(
-    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />,
-    document.body.appendChild(document.createElement('DIV')),
-  );
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(<DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />);
 
   await sdkReady();
 
@@ -228,12 +230,14 @@ it('calls onReady', async () => {
   let ready = false;
   const onReady = () => (ready = true);
 
-  render(
+  root = createRoot(
+    document.body.appendChild(document.createElement('iframe')),
+  );
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       onReady={onReady}
     />,
-    document.body.appendChild(document.createElement('iframe')),
   );
 
   await sdkReady();
@@ -256,14 +260,16 @@ it('calls onNoticeShown', (done) => {
     },
   };
 
-  render(
+  root = createRoot(
+    document.body.appendChild(document.createElement('iframe')),
+  );
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       config={config}
       gdprAppliesGlobally={true}
       onNoticeShown={eventHandler}
     />,
-    document.body.appendChild(document.createElement('iframe')),
   );
 });
 
@@ -272,12 +278,12 @@ it('sets the didomiConfig', async () => {
     key: 'value',
   };
 
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       config={didomiConfig}
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -286,12 +292,12 @@ it('sets the didomiConfig', async () => {
 });
 
 it('sets gdprAppliesGlobally to true', async () => {
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       gdprAppliesGlobally={true}
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -300,12 +306,12 @@ it('sets gdprAppliesGlobally to true', async () => {
 });
 
 it('sets gdprAppliesGlobally to false', async () => {
-  render(
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       gdprAppliesGlobally={false}
     />,
-    document.body.appendChild(document.createElement('DIV')),
   );
 
   await sdkReady();
@@ -325,13 +331,15 @@ describe('TCF stub', () => {
       },
     };
 
-    render(
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={2}
         config={config}
       />,
-      document.body.appendChild(document.createElement('iframe')),
     );
 
     await sdkReady();
@@ -351,14 +359,16 @@ describe('TCF stub', () => {
       },
     };
 
-    render(
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={2}
         embedTCFStub={true}
         config={config}
       />,
-      document.body.appendChild(document.createElement('iframe')),
     );
 
     await sdkReady();
@@ -378,13 +388,15 @@ describe('TCF stub', () => {
       },
     };
 
-    render(
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={1}
         config={config}
       />,
-      document.body.appendChild(document.createElement('iframe')),
     );
 
     await sdkReady();
@@ -404,14 +416,16 @@ describe('TCF stub', () => {
       },
     };
 
-    render(
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={1}
         embedTCFStub={true}
         config={config}
       />,
-      document.body.appendChild(document.createElement('iframe')),
     );
 
     await sdkReady();
@@ -431,14 +445,16 @@ describe('TCF stub', () => {
       },
     };
 
-    render(
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={2}
         embedTCFStub={false}
         config={config}
       />,
-      document.body.appendChild(document.createElement('iframe')),
     );
 
     await sdkReady();
