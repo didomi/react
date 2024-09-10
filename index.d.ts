@@ -155,6 +155,9 @@ declare namespace DidomiReact {
     getRequiredPurposeIds(): any;
     getTranslationAsHTML(): any;
     getCurrentUserStatus(): ICurrentUserStatus;
+    /**
+     * @deprecated Please use getCurrentUserStatus instead
+     */
     getUserStatus(): IUserStatus;
     getUserConsentStatusForAll(): IUserConsentStatus;
     getUserConsentToken(): any;
