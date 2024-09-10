@@ -114,6 +114,26 @@ declare namespace DidomiReact {
     };
   }
 
+  type CurrentUserStatusValue<T extends string> = {
+    [K in T]: {
+      id: K;
+      enabled: boolean;
+    };
+  };
+
+  /**
+   * Should match: https://developers.didomi.io/cmp/web-sdk/reference/api#getcurrentuserstatus
+   */
+  interface ICurrentUserStatus {
+    addtl_consent: string;
+    consent_string: string;
+    regulation: string;
+    created: string;
+    updated: string;
+    user_id: string;
+    purposes: CurrentUserStatusValue<string>;
+    vendors: CurrentUserStatusValue<string>;
+  }
   /**
    * Didomi Object (exported by the SDK as window.Didomi)
    */
@@ -134,6 +154,7 @@ declare namespace DidomiReact {
     getPurposes(): any;
     getRequiredPurposeIds(): any;
     getTranslationAsHTML(): any;
+    getCurrentUserStatus(): ICurrentUserStatus;
     getUserStatus(): IUserStatus;
     getUserConsentStatusForAll(): IUserConsentStatus;
     getUserConsentToken(): any;
