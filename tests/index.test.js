@@ -32,6 +32,7 @@ beforeEach(function () {
   delete window.Didomi;
   delete window.didomiConfig;
   delete window.__tcfapi;
+  delete window.__cmp;
   delete window.gdprAppliesGlobally;
   delete window.didomiCountry;
 });
@@ -292,6 +293,34 @@ describe('TCF stub', () => {
     expect(typeof window.__cmp).toEqual('undefined');
   });
 
+  it('embeds the TCF stub when loading from a custom SDK path (TCFv2)', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        config={config}
+        sdkPath="https://sdk.staging.privacy-center.org/"
+      />,
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(typeof window.__cmp).toEqual('undefined');
+  });
+
   it('embeds the TCF stub if the embedTCFStub prop is true (TCFv2)', async function () {
     const config = {
       app: {
@@ -312,6 +341,35 @@ describe('TCF stub', () => {
         embedTCFStub={true}
         config={config}
         country="FR"
+      />,
+    );
+
+    await sdkReady();
+
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(typeof window.__cmp).toEqual('undefined');
+  });
+
+  it('embeds the TCF stub when loading a notice on a platform (TCFv2)', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        config={config}
+        noticeId="noticeId"
+        platform="ctv"
       />,
     );
 
