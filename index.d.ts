@@ -215,7 +215,6 @@ declare namespace DidomiReact {
    */
   interface IDidomiSDKProps {
     apiKey?: string;
-    iabVersion?: number;
     noticeId?: string;
     platform?: string;
     config?: IDidomiConfig;
