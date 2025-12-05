@@ -26,6 +26,8 @@ const DidomiSDK = ({
   onPreferencesClickVendorSaveChoices,
   sdkPath = 'https://sdk.privacy-center.org/',
   embedTCFStub = true,
+  country = null,
+  region = null,
 }) => {
   /**
    * Set all the Didomi event listeners from the props
@@ -180,6 +182,15 @@ const DidomiSDK = ({
       loaderParams = `target=${document.location.hostname}`;
     }
 
+    // Append country and region to loader params if provided
+    // This allows the server to determine the correct response based on user geolocation
+    if (country) {
+      loaderParams = `${loaderParams}&country=${country}`;
+    }
+    if (region) {
+      loaderParams = `${loaderParams}&region=${region}`;
+    }
+
     // Embed the TCF stub
     if (embedTCFStub) {
       if (iabVersion === 2) {
@@ -249,6 +260,8 @@ DidomiSDK.propTypes = {
   onPreferencesClickVendorSaveChoices: PropTypes.func,
   sdkPath: PropTypes.string,
   embedTCFStub: PropTypes.bool,
+  country: PropTypes.string,
+  region: PropTypes.string,
 };
 
 export { DidomiSDK };

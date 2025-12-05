@@ -34,6 +34,7 @@ beforeEach(function () {
   delete window.__tcfapi;
   delete window.__cmp;
   delete window.gdprAppliesGlobally;
+  delete window.didomiCountry;
 });
 
 it('loads and initializes the Didomi SDK (TCFv2)', async () => {
@@ -41,7 +42,11 @@ it('loads and initializes the Didomi SDK (TCFv2)', async () => {
     document.body.appendChild(document.createElement('iframe')),
   );
   root.render(
-    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={2} />,
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={2}
+      country="FR"
+    />,
   );
 
   await sdkReady();
@@ -50,7 +55,7 @@ it('loads and initializes the Didomi SDK (TCFv2)', async () => {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=FR',
   );
 
   expect(typeof window.__tcfapi).toEqual('function');
@@ -66,6 +71,7 @@ it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={2}
       sdkPath="https://sdk.staging.privacy-center.org/"
+      country="FR"
     />,
   );
 
@@ -75,7 +81,7 @@ it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=FR',
   );
 
   expect(window.didomiConfig.sdkPath).toEqual(
@@ -90,6 +96,7 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={2}
       noticeId="noticeId"
+      country="FR"
     />,
   );
 
@@ -99,7 +106,7 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId',
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId&country=FR',
   );
 });
 
@@ -111,6 +118,7 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
       iabVersion={2}
       noticeId="noticeId"
       platform="ctv"
+      country="FR"
     />,
   );
 
@@ -120,7 +128,7 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?platform=ctv&target_type=notice&target=noticeId',
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?platform=ctv&target_type=notice&target=noticeId&country=FR',
   );
 });
 
@@ -129,7 +137,11 @@ it('loads and initializes the Didomi SDK (TCFv1)', async () => {
     document.body.appendChild(document.createElement('iframe')),
   );
   root.render(
-    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" iabVersion={1} />,
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      iabVersion={1}
+      country="FR"
+    />,
   );
 
   await sdkReady();
@@ -138,7 +150,7 @@ it('loads and initializes the Didomi SDK (TCFv1)', async () => {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=FR',
   );
 
   expect(typeof window.__cmp).toEqual('function');
@@ -154,6 +166,7 @@ it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={1}
       sdkPath="https://sdk.staging.privacy-center.org/"
+      country="FR"
     />,
   );
 
@@ -163,7 +176,7 @@ it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost',
+    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=FR',
   );
 
   expect(window.didomiConfig.sdkPath).toEqual(
@@ -171,13 +184,14 @@ it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
   );
 });
 
-it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
+it('loads the Didomi SDK with a specific notice ID (TCFv1)', async () => {
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
   root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       iabVersion={1}
       noticeId="noticeId"
+      country="FR"
     />,
   );
 
@@ -187,11 +201,11 @@ it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId',
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId&country=FR',
   );
 });
 
-it('loads the Didomi SDK with a specific platform (CTV)', async () => {
+it('loads the Didomi SDK with a specific platform (CTV) (TCFv1)', async () => {
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
   root.render(
     <DidomiSDK
@@ -199,6 +213,7 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
       iabVersion={1}
       noticeId="noticeId"
       platform="ctv"
+      country="FR"
     />,
   );
 
@@ -208,22 +223,46 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
   const sdkScript = document.querySelector('#spcloader');
   expect(sdkScript).toExist();
   expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?platform=ctv&target_type=notice&target=noticeId',
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?platform=ctv&target_type=notice&target=noticeId&country=FR',
   );
 });
 
 it('loads the Didomi SDK only one time even if component is rendered multiple times', async () => {
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
-  root.render(<DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />);
+  root.render(
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" country="FR" />,
+  );
 
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
-  root.render(<DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" />);
+  root.render(
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" country="FR" />,
+  );
 
   await sdkReady();
 
   // Ensure that the SDK is correctly embedded on the page
   const sdkScript = document.querySelectorAll('#spcloader');
   expect(sdkScript.length).toEqual(1);
+});
+
+it('loads the Didomi SDK with country and region query-string parameters', async () => {
+  root = createRoot(document.body.appendChild(document.createElement('DIV')));
+  root.render(
+    <DidomiSDK
+      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+      country="US"
+      region="CA"
+    />,
+  );
+
+  await sdkReady();
+
+  // Ensure that the SDK is correctly embedded on the page with country and region params
+  const sdkScript = document.querySelector('#spcloader');
+  expect(sdkScript).toExist();
+  expect(sdkScript.src).toEqual(
+    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=US&region=CA',
+  );
 });
 
 it('calls onReady', async () => {
@@ -237,6 +276,7 @@ it('calls onReady', async () => {
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       onReady={onReady}
+      country="FR"
     />,
   );
 
@@ -269,6 +309,7 @@ it('calls onNoticeShown', (done) => {
       config={config}
       gdprAppliesGlobally={true}
       onNoticeShown={eventHandler}
+      country="FR"
     />,
   );
 });
@@ -283,6 +324,7 @@ it('sets the didomiConfig', async () => {
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       config={didomiConfig}
+      country="FR"
     />,
   );
 
@@ -297,6 +339,7 @@ it('sets gdprAppliesGlobally to true', async () => {
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       gdprAppliesGlobally={true}
+      country="FR"
     />,
   );
 
@@ -311,6 +354,7 @@ it('sets gdprAppliesGlobally to false', async () => {
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
       gdprAppliesGlobally={false}
+      country="FR"
     />,
   );
 
@@ -339,6 +383,7 @@ describe('TCF stub', () => {
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={2}
         config={config}
+        country="FR"
       />,
     );
 
@@ -368,6 +413,7 @@ describe('TCF stub', () => {
         iabVersion={2}
         embedTCFStub={true}
         config={config}
+        country="FR"
       />,
     );
 
@@ -396,6 +442,7 @@ describe('TCF stub', () => {
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         iabVersion={1}
         config={config}
+        country="FR"
       />,
     );
 
@@ -425,6 +472,7 @@ describe('TCF stub', () => {
         iabVersion={1}
         embedTCFStub={true}
         config={config}
+        country="FR"
       />,
     );
 
@@ -454,6 +502,7 @@ describe('TCF stub', () => {
         iabVersion={2}
         embedTCFStub={false}
         config={config}
+        country="FR"
       />,
     );
 

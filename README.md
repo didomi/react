@@ -37,6 +37,8 @@ The sooner you instantiate the component, the faster the banner will be displaye
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
   embedTCFStub={true}
+  country="FR" // Override the user's country (ISO 3166-1 alpha-2 code)
+  region="IDF" // Override the user's region (ISO 3166-2 code)
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
   onConsentChanged={cwtToken => console.log('A consent has been given/withdrawn', cwtToken)}
   onNoticeShown={() => console.log('Didomi Notice Shown')}
@@ -162,6 +164,18 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>boolean</td>
       <td><code>true</code></td>
       <td>Define whether the IAB TCF stub is embedded on the page before loading the SDK. If your consent notice uses the IAB TCF, we recommend embedding the IAB TCF stub to optimize the communication with vendors.</td>
+    </tr>
+    <tr>
+      <td>country</td>
+      <td>string</td>
+      <td>null</td>
+      <td>Override the user's country. Use a valid <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> country code (e.g., "FR", "US", "GB").</td>
+    </tr>
+    <tr>
+      <td>region</td>
+      <td>string</td>
+      <td>null</td>
+      <td>Override the user's region. Use a valid <a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> region code (e.g., "CA" for California, "IDF" for Île-de-France).</td>
     </tr>
     <tr>
       <td>onReady</td>
