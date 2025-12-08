@@ -31,7 +31,6 @@ The sooner you instantiate the component, the faster the banner will be displaye
 ```jsx
 <DidomiSDK
   apiKey="API_KEY"
-  iabVersion={2} // If you want to support the TCF v1∏, don't forget to change this value, even if you selected the TCF v2 in the console. This parameter will load the correct stub in the React Component
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   platform="ctv" // If you want to target a CTV notice, default value is null
   gdprAppliesGlobally={true}
@@ -58,8 +57,10 @@ The sooner you instantiate the component, the faster the banner will be displaye
 />
 ```
 
-The Didomi SDK will automatically download its configuration from the Didomi Console.  
+The Didomi SDK will automatically download its configuration from the Didomi Console.
 Configuration modifications applied through the Didomi Console will be distributed to your users automatically, without modifications to your code.
+
+The component only supports the IAB TCF v2. When `embedTCFStub` is enabled, the TCF v2 stub is embedded automatically before loading the SDK.
 
 ### Instantiate the component with a local configuration
 
@@ -84,7 +85,6 @@ const didomiConfig = {
 
 <DidomiSDK
   config={didomiConfig}
-  iabVersion={2} // If you want to support the TCF v1, don't forget to change this value. This parameter will load the correct stub in the React Component
   noticeId="NOTICE_ID" // If you want to target the notice by ID and not by domain
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
@@ -127,12 +127,6 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>string</td>
       <td>null</td>
       <td>Your API Key</td>
-    </tr>
-    <tr>
-      <td>iabVersion</td>
-      <td>number</td>
-      <td>1</td>
-      <td>The IAB TCF Version you want to support (1 or 2)</td>
     </tr>
     <tr>
       <td>noticeId</td>
@@ -500,7 +494,6 @@ class DidomiDemo extends Component {
     return <div>
       <h1>Didomi React Demo</h1>
       <DidomiSDK
-        iabVersion={2}
         config={didomiConfig}
         gdprAppliesGlobally={true}
         onReady={this.onDidomiReady.bind(this)}

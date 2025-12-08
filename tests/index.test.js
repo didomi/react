@@ -32,21 +32,17 @@ beforeEach(function () {
   delete window.Didomi;
   delete window.didomiConfig;
   delete window.__tcfapi;
-  delete window.__cmp;
+  delete window.__tcfapiBuffer;
   delete window.gdprAppliesGlobally;
   delete window.didomiCountry;
 });
 
-it('loads and initializes the Didomi SDK (TCFv2)', async () => {
+it('loads and initializes the Didomi SDK', async () => {
   root = createRoot(
     document.body.appendChild(document.createElement('iframe')),
   );
   root.render(
-    <DidomiSDK
-      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={2}
-      country="FR"
-    />,
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" country="FR" />,
   );
 
   await sdkReady();
@@ -63,13 +59,12 @@ it('loads and initializes the Didomi SDK (TCFv2)', async () => {
 
 // This is intentionally not an arrow function, so that the this binding is not lost and the this.timeout(10000) applies
 // Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
-it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
+it('loads the Didomi SDK from a specific SDK path', async function () {
   this.timeout(10000);
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
   root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={2}
       sdkPath="https://sdk.staging.privacy-center.org/"
       country="FR"
     />,
@@ -89,12 +84,11 @@ it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
   );
 });
 
-it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
+it('loads the Didomi SDK with a specific notice ID', async () => {
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
   root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={2}
       noticeId="noticeId"
       country="FR"
     />,
@@ -115,102 +109,6 @@ it('loads the Didomi SDK with a specific platform (CTV)', async () => {
   root.render(
     <DidomiSDK
       apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={2}
-      noticeId="noticeId"
-      platform="ctv"
-      country="FR"
-    />,
-  );
-
-  await sdkReady();
-
-  // Ensure that the SDK is correctly embedded on the page
-  const sdkScript = document.querySelector('#spcloader');
-  expect(sdkScript).toExist();
-  expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?platform=ctv&target_type=notice&target=noticeId&country=FR',
-  );
-});
-
-it('loads and initializes the Didomi SDK (TCFv1)', async () => {
-  root = createRoot(
-    document.body.appendChild(document.createElement('iframe')),
-  );
-  root.render(
-    <DidomiSDK
-      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={1}
-      country="FR"
-    />,
-  );
-
-  await sdkReady();
-
-  // Ensure that the SDK is correctly embedded on the page
-  const sdkScript = document.querySelector('#spcloader');
-  expect(sdkScript).toExist();
-  expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=FR',
-  );
-
-  expect(typeof window.__cmp).toEqual('function');
-});
-
-// This is intentionally not an arrow function, so that the this binding is not lost and the this.timeout(10000) applies
-// Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
-it('loads the Didomi SDK from a specific SDK path (TCFv1)', async function () {
-  this.timeout(10000);
-  root = createRoot(document.body.appendChild(document.createElement('DIV')));
-  root.render(
-    <DidomiSDK
-      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={1}
-      sdkPath="https://sdk.staging.privacy-center.org/"
-      country="FR"
-    />,
-  );
-
-  await sdkReady();
-
-  // Ensure that the SDK is correctly embedded on the page
-  const sdkScript = document.querySelector('#spcloader');
-  expect(sdkScript).toExist();
-  expect(sdkScript.src).toEqual(
-    'https://sdk.staging.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target=localhost&country=FR',
-  );
-
-  expect(window.didomiConfig.sdkPath).toEqual(
-    'https://sdk.staging.privacy-center.org/',
-  );
-});
-
-it('loads the Didomi SDK with a specific notice ID (TCFv1)', async () => {
-  root = createRoot(document.body.appendChild(document.createElement('DIV')));
-  root.render(
-    <DidomiSDK
-      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={1}
-      noticeId="noticeId"
-      country="FR"
-    />,
-  );
-
-  await sdkReady();
-
-  // Ensure that the SDK is correctly embedded on the page
-  const sdkScript = document.querySelector('#spcloader');
-  expect(sdkScript).toExist();
-  expect(sdkScript.src).toEqual(
-    'https://sdk.privacy-center.org/03f1af55-a479-4c1f-891a-7481345171ce/loader.js?target_type=notice&target=noticeId&country=FR',
-  );
-});
-
-it('loads the Didomi SDK with a specific platform (CTV) (TCFv1)', async () => {
-  root = createRoot(document.body.appendChild(document.createElement('DIV')));
-  root.render(
-    <DidomiSDK
-      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      iabVersion={1}
       noticeId="noticeId"
       platform="ctv"
       country="FR"
@@ -364,151 +262,99 @@ it('sets gdprAppliesGlobally to false', async () => {
 });
 
 describe('TCF stub', () => {
-  it('embeds the TCF stub if the embedTCFStub prop is not provided (TCFv2)', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
+  // Use an invalid sdkPath to prevent the SDK from loading,
+  // ensuring we test the stub behavior without race conditions
+  const nonLoadingSdkPath = 'about:blank#';
 
+  // Helper to wait for React to render and the stub to be embedded
+  const waitForStub = () => new Promise((resolve) => setTimeout(resolve, 50));
+
+  it('embeds the TCF stub if the embedTCFStub prop is not provided', async function () {
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={2}
-        config={config}
+        sdkPath={nonLoadingSdkPath}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
+    expect(window.__tcfapi.stub).toEqual(true);
   });
 
-  it('embeds the TCF stub if the embedTCFStub prop is true (TCFv2)', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
+  it('embeds the TCF stub if the embedTCFStub prop is true', async function () {
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={2}
+        sdkPath={nonLoadingSdkPath}
         embedTCFStub={true}
-        config={config}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
-  });
-
-  it('embeds the TCF stub if the embedTCFStub prop is not provided (TCFv1)', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
-    root = createRoot(
-      document.body.appendChild(document.createElement('iframe')),
-    );
-    root.render(
-      <DidomiSDK
-        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={1}
-        config={config}
-        country="FR"
-      />,
-    );
-
-    await sdkReady();
-
-    expect(typeof window.__cmp).toEqual('function');
-    expect(typeof window.__tcfapi).toEqual('undefined');
-  });
-
-  it('embeds the TCF stub if the embedTCFStub prop is true (TCFv1)', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
-    root = createRoot(
-      document.body.appendChild(document.createElement('iframe')),
-    );
-    root.render(
-      <DidomiSDK
-        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={1}
-        embedTCFStub={true}
-        config={config}
-        country="FR"
-      />,
-    );
-
-    await sdkReady();
-
-    expect(typeof window.__cmp).toEqual('function');
-    expect(typeof window.__tcfapi).toEqual('undefined');
+    expect(window.__tcfapi.stub).toEqual(true);
   });
 
   it('does not embed the TCF stub if embedTCFStub prop is set to false', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        iabVersion={2}
+        sdkPath={nonLoadingSdkPath}
         embedTCFStub={false}
-        config={config}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     expect(window.__tcfapi).toEqual(undefined);
-    expect(window.__cmp).toEqual(undefined);
+  });
+
+  it('embeds the correct TCF v2 stub structure', async function () {
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
+        country="FR"
+      />,
+    );
+
+    await waitForStub();
+
+    // Verify __tcfapi is a stub function
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(window.__tcfapi.stub).toEqual(true);
+
+    // Verify the __tcfapiLocator iframe is created
+    expect(window.frames['__tcfapiLocator']).toExist();
+
+    // Verify commands are queued in __tcfapiBuffer
+    window.__tcfapi('ping', 2, () => {});
+
+    expect(Array.isArray(window.__tcfapiBuffer)).toEqual(true);
+    expect(window.__tcfapiBuffer.length).toBeGreaterThan(0);
+
+    const lastBufferEntry =
+      window.__tcfapiBuffer[window.__tcfapiBuffer.length - 1];
+    expect(lastBufferEntry.command).toEqual('ping');
+    expect(lastBufferEntry.parameter).toEqual(2);
+    expect(typeof lastBufferEntry.callback).toEqual('function');
   });
 });
