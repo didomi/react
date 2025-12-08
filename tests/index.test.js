@@ -32,6 +32,7 @@ beforeEach(function () {
   delete window.Didomi;
   delete window.didomiConfig;
   delete window.__tcfapi;
+  delete window.__tcfapiBuffer;
   delete window.gdprAppliesGlobally;
   delete window.didomiCountry;
 });
@@ -402,5 +403,52 @@ describe('TCF stub', () => {
     await sdkReady();
 
     expect(window.__tcfapi).toEqual(undefined);
+  });
+
+  it('embeds the correct TCF v2 stub structure', async function () {
+    const config = {
+      app: {
+        vendors: {
+          iab: {
+            enabled: false,
+          },
+        },
+      },
+    };
+
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        config={config}
+        country="FR"
+      />,
+    );
+
+    await sdkReady();
+
+    // Verify __tcfapi is a stub function
+    expect(typeof window.__tcfapi).toEqual('function');
+    expect(window.__tcfapi.stub).toEqual(true);
+
+    // Verify the __tcfapiLocator iframe is created
+    expect(window.frames['__tcfapiLocator']).toExist();
+
+    // Verify commands are queued in __tcfapiBuffer
+    const callbackResult = { called: false, data: null };
+    window.__tcfapi('ping', 2, (data, success) => {
+      callbackResult.called = true;
+      callbackResult.data = { data, success };
+    });
+
+    expect(Array.isArray(window.__tcfapiBuffer)).toEqual(true);
+    expect(window.__tcfapiBuffer.length).toBeGreaterThan(0);
+
+    const lastBufferEntry = window.__tcfapiBuffer[window.__tcfapiBuffer.length - 1];
+    expect(lastBufferEntry.command).toEqual('ping');
+    expect(lastBufferEntry.parameter).toEqual(2);
+    expect(typeof lastBufferEntry.callback).toEqual('function');
   });
 });
