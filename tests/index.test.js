@@ -32,12 +32,11 @@ beforeEach(function () {
   delete window.Didomi;
   delete window.didomiConfig;
   delete window.__tcfapi;
-  delete window.__cmp;
   delete window.gdprAppliesGlobally;
   delete window.didomiCountry;
 });
 
-it('loads and initializes the Didomi SDK (TCFv2)', async () => {
+it('loads and initializes the Didomi SDK', async () => {
   root = createRoot(
     document.body.appendChild(document.createElement('iframe')),
   );
@@ -62,7 +61,7 @@ it('loads and initializes the Didomi SDK (TCFv2)', async () => {
 
 // This is intentionally not an arrow function, so that the this binding is not lost and the this.timeout(10000) applies
 // Otherwise we will get flaky results. The tests are cut short at 2000ms when fetching data from the specified sdk path
-it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
+it('loads the Didomi SDK from a specific SDK path', async function () {
   this.timeout(10000);
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
   root.render(
@@ -87,7 +86,7 @@ it('loads the Didomi SDK from a specific SDK path (TCFv2)', async function () {
   );
 });
 
-it('loads the Didomi SDK with a specific notice ID (TCFv2)', async () => {
+it('loads the Didomi SDK with a specific notice ID', async () => {
   root = createRoot(document.body.appendChild(document.createElement('DIV')));
   root.render(
     <DidomiSDK
@@ -265,7 +264,7 @@ it('sets gdprAppliesGlobally to false', async () => {
 });
 
 describe('TCF stub', () => {
-  it('embeds the TCF stub if the embedTCFStub prop is not provided (TCFv2)', async function () {
+  it('embeds the TCF stub if the embedTCFStub prop is not provided', async function () {
     const config = {
       app: {
         vendors: {
@@ -290,10 +289,9 @@ describe('TCF stub', () => {
     await sdkReady();
 
     expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
   });
 
-  it('embeds the TCF stub when loading from a custom SDK path (TCFv2)', async function () {
+  it('embeds the TCF stub when loading from a custom SDK path', async function () {
     const config = {
       app: {
         vendors: {
@@ -312,16 +310,16 @@ describe('TCF stub', () => {
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
         config={config}
         sdkPath="https://sdk.staging.privacy-center.org/"
+        country="FR"
       />,
     );
 
     await sdkReady();
 
     expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
   });
 
-  it('embeds the TCF stub if the embedTCFStub prop is true (TCFv2)', async function () {
+  it('embeds the TCF stub if the embedTCFStub prop is true', async function () {
     const config = {
       app: {
         vendors: {
@@ -347,10 +345,9 @@ describe('TCF stub', () => {
     await sdkReady();
 
     expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
   });
 
-  it('embeds the TCF stub when loading a notice on a platform (TCFv2)', async function () {
+  it('embeds the TCF stub when loading a notice on a platform', async function () {
     const config = {
       app: {
         vendors: {
@@ -370,13 +367,13 @@ describe('TCF stub', () => {
         config={config}
         noticeId="noticeId"
         platform="ctv"
+        country="FR"
       />,
     );
 
     await sdkReady();
 
     expect(typeof window.__tcfapi).toEqual('function');
-    expect(typeof window.__cmp).toEqual('undefined');
   });
 
   it('does not embed the TCF stub if embedTCFStub prop is set to false', async function () {
@@ -405,6 +402,5 @@ describe('TCF stub', () => {
     await sdkReady();
 
     expect(window.__tcfapi).toEqual(undefined);
-    expect(window.__cmp).toEqual(undefined);
   });
 });
