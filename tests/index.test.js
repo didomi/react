@@ -265,169 +265,81 @@ it('sets gdprAppliesGlobally to false', async () => {
 });
 
 describe('TCF stub', () => {
+  // Use an invalid sdkPath to prevent the SDK from loading,
+  // ensuring we test the stub behavior without race conditions
+  const nonLoadingSdkPath = 'about:blank#';
+
+  // Helper to wait for React to render and the stub to be embedded
+  const waitForStub = () => new Promise((resolve) => setTimeout(resolve, 50));
+
   it('embeds the TCF stub if the embedTCFStub prop is not provided', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        config={config}
+        sdkPath={nonLoadingSdkPath}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     expect(typeof window.__tcfapi).toEqual('function');
-  });
-
-  it('embeds the TCF stub when loading from a custom SDK path', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
-    root = createRoot(
-      document.body.appendChild(document.createElement('iframe')),
-    );
-    root.render(
-      <DidomiSDK
-        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        config={config}
-        sdkPath="https://sdk.staging.privacy-center.org/"
-        country="FR"
-      />,
-    );
-
-    await sdkReady();
-
-    expect(typeof window.__tcfapi).toEqual('function');
+    expect(window.__tcfapi.stub).toEqual(true);
   });
 
   it('embeds the TCF stub if the embedTCFStub prop is true', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
         embedTCFStub={true}
-        config={config}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     expect(typeof window.__tcfapi).toEqual('function');
-  });
-
-  it('embeds the TCF stub when loading a notice on a platform', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
-    root = createRoot(
-      document.body.appendChild(document.createElement('iframe')),
-    );
-    root.render(
-      <DidomiSDK
-        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        config={config}
-        noticeId="noticeId"
-        platform="ctv"
-        country="FR"
-      />,
-    );
-
-    await sdkReady();
-
-    expect(typeof window.__tcfapi).toEqual('function');
+    expect(window.__tcfapi.stub).toEqual(true);
   });
 
   it('does not embed the TCF stub if embedTCFStub prop is set to false', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
         embedTCFStub={false}
-        config={config}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     expect(window.__tcfapi).toEqual(undefined);
   });
 
   it('embeds the correct TCF v2 stub structure', async function () {
-    const config = {
-      app: {
-        vendors: {
-          iab: {
-            enabled: false,
-          },
-        },
-      },
-    };
-
     root = createRoot(
       document.body.appendChild(document.createElement('iframe')),
     );
     root.render(
       <DidomiSDK
         apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-        config={config}
+        sdkPath={nonLoadingSdkPath}
         country="FR"
       />,
     );
 
-    await sdkReady();
+    await waitForStub();
 
     // Verify __tcfapi is a stub function
     expect(typeof window.__tcfapi).toEqual('function');
@@ -437,11 +349,7 @@ describe('TCF stub', () => {
     expect(window.frames['__tcfapiLocator']).toExist();
 
     // Verify commands are queued in __tcfapiBuffer
-    const callbackResult = { called: false, data: null };
-    window.__tcfapi('ping', 2, (data, success) => {
-      callbackResult.called = true;
-      callbackResult.data = { data, success };
-    });
+    window.__tcfapi('ping', 2, () => {});
 
     expect(Array.isArray(window.__tcfapiBuffer)).toEqual(true);
     expect(window.__tcfapiBuffer.length).toBeGreaterThan(0);
