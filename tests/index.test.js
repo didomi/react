@@ -42,10 +42,7 @@ it('loads and initializes the Didomi SDK', async () => {
     document.body.appendChild(document.createElement('iframe')),
   );
   root.render(
-    <DidomiSDK
-      apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
-      country="FR"
-    />,
+    <DidomiSDK apiKey="03f1af55-a479-4c1f-891a-7481345171ce" country="FR" />,
   );
 
   await sdkReady();
@@ -354,7 +351,8 @@ describe('TCF stub', () => {
     expect(Array.isArray(window.__tcfapiBuffer)).toEqual(true);
     expect(window.__tcfapiBuffer.length).toBeGreaterThan(0);
 
-    const lastBufferEntry = window.__tcfapiBuffer[window.__tcfapiBuffer.length - 1];
+    const lastBufferEntry =
+      window.__tcfapiBuffer[window.__tcfapiBuffer.length - 1];
     expect(lastBufferEntry.command).toEqual('ping');
     expect(lastBufferEntry.parameter).toEqual(2);
     expect(typeof lastBufferEntry.callback).toEqual('function');
