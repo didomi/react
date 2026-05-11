@@ -36,6 +36,7 @@ The sooner you instantiate the component, the faster the banner will be displaye
   gdprAppliesGlobally={true}
   sdkPath="https://sdk.privacy-center.org/"
   embedTCFStub={true}
+  embedGPPStub={false} // Set to true to embed the IAB GPP stub before loading the SDK
   country="FR" // Override the user's country (ISO 3166-1 alpha-2 code)
   region="IDF" // Override the user's region (ISO 3166-2 code)
   onReady={didomi => console.log('Didomi SDK is loaded and ready', didomi)}
@@ -61,6 +62,8 @@ The Didomi SDK will automatically download its configuration from the Didomi Con
 Configuration modifications applied through the Didomi Console will be distributed to your users automatically, without modifications to your code.
 
 The component only supports the IAB TCF v2. When `embedTCFStub` is enabled, the TCF v2 stub is embedded automatically before loading the SDK.
+
+If your consent notice also uses the IAB GPP framework, you can opt in to embedding the GPP stub by setting `embedGPPStub={true}`. The GPP stub is not embedded by default.
 
 ### Instantiate the component with a local configuration
 
@@ -158,6 +161,12 @@ The following configuration options can be passed as props to the `DidomiSDK` co
       <td>boolean</td>
       <td><code>true</code></td>
       <td>Define whether the IAB TCF stub is embedded on the page before loading the SDK. If your consent notice uses the IAB TCF, we recommend embedding the IAB TCF stub to optimize the communication with vendors.</td>
+    </tr>
+    <tr>
+      <td>embedGPPStub</td>
+      <td>boolean</td>
+      <td><code>false</code></td>
+      <td>Define whether the IAB GPP stub is embedded on the page before loading the SDK. Enable this when your consent notice uses the IAB GPP framework so that vendor calls made before the SDK finishes loading are queued and replayed.</td>
     </tr>
     <tr>
       <td>country</td>

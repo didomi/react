@@ -33,6 +33,10 @@ beforeEach(function () {
   delete window.didomiConfig;
   delete window.__tcfapi;
   delete window.__tcfapiBuffer;
+  delete window.__gpp;
+  delete window.__gpp_stub;
+  delete window.__gpp_addFrame;
+  delete window.__gpp_msghandler;
   delete window.gdprAppliesGlobally;
   delete window.didomiCountry;
 });
@@ -356,5 +360,114 @@ describe('TCF stub', () => {
     expect(lastBufferEntry.command).toEqual('ping');
     expect(lastBufferEntry.parameter).toEqual(2);
     expect(typeof lastBufferEntry.callback).toEqual('function');
+  });
+});
+
+describe('GPP stub', () => {
+  // Use an invalid sdkPath to prevent the SDK from loading,
+  // ensuring we test the stub behavior without race conditions
+  const nonLoadingSdkPath = 'about:blank#';
+
+  // Helper to wait for React to render and the stub to be embedded
+  const waitForStub = () => new Promise((resolve) => setTimeout(resolve, 50));
+
+  it('does not embed the GPP stub by default', async function () {
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
+        country="FR"
+      />,
+    );
+
+    await waitForStub();
+
+    expect(window.__gpp).toEqual(undefined);
+  });
+
+  it('embeds the GPP stub if the embedGPPStub prop is true', async function () {
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
+        embedGPPStub={true}
+        country="FR"
+      />,
+    );
+
+    await waitForStub();
+
+    expect(typeof window.__gpp).toEqual('function');
+    expect(window.frames['__gppLocator']).toExist();
+  });
+
+  it('does not embed the GPP stub if embedGPPStub prop is set to false', async function () {
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
+        embedGPPStub={false}
+        country="FR"
+      />,
+    );
+
+    await waitForStub();
+
+    expect(window.__gpp).toEqual(undefined);
+  });
+
+  it('embeds the correct GPP stub structure', async function () {
+    root = createRoot(
+      document.body.appendChild(document.createElement('iframe')),
+    );
+    root.render(
+      <DidomiSDK
+        apiKey="03f1af55-a479-4c1f-891a-7481345171ce"
+        sdkPath={nonLoadingSdkPath}
+        embedGPPStub={true}
+        country="FR"
+      />,
+    );
+
+    await waitForStub();
+
+    // Verify __gpp is a stub function
+    expect(typeof window.__gpp).toEqual('function');
+
+    // Verify the __gppLocator iframe is created
+    expect(window.frames['__gppLocator']).toExist();
+
+    // Verify the ping command returns the expected stub payload
+    let pingResponse;
+    let pingSuccess;
+    window.__gpp('ping', (response, success) => {
+      pingResponse = response;
+      pingSuccess = success;
+    });
+
+    expect(pingSuccess).toEqual(true);
+    expect(pingResponse.gppVersion).toEqual('1.1');
+    expect(pingResponse.cmpStatus).toEqual('stub');
+    expect(pingResponse.signalStatus).toEqual('not ready');
+
+    // Verify unknown commands are queued on __gpp.queue
+    window.__gpp('someUnknownCommand', () => {}, 'param');
+
+    expect(Array.isArray(window.__gpp.queue)).toEqual(true);
+    expect(window.__gpp.queue.length).toBeGreaterThan(0);
+
+    const lastQueueEntry = window.__gpp.queue[window.__gpp.queue.length - 1];
+    expect(lastQueueEntry[0]).toEqual('someUnknownCommand');
+    expect(typeof lastQueueEntry[1]).toEqual('function');
+    expect(lastQueueEntry[2]).toEqual('param');
   });
 });
