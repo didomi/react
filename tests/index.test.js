@@ -346,8 +346,11 @@ describe('TCF stub', () => {
     expect(typeof window.__tcfapi).toEqual('function');
     expect(window.__tcfapi.stub).toEqual(true);
 
-    // Verify the __tcfapiLocator iframe is created
+    // Verify the __tcfapiLocator iframe is created and hidden from AT
     expect(window.frames['__tcfapiLocator']).toExist();
+    const tcfLocator = document.querySelector('iframe[name="__tcfapiLocator"]');
+    expect(tcfLocator.getAttribute('aria-hidden')).toEqual('true');
+    expect(tcfLocator.tabIndex).toEqual(-1);
 
     // Verify commands are queued in __tcfapiBuffer
     window.__tcfapi('ping', 2, () => {});
@@ -443,8 +446,11 @@ describe('GPP stub', () => {
     // Verify __gpp is a stub function
     expect(typeof window.__gpp).toEqual('function');
 
-    // Verify the __gppLocator iframe is created
+    // Verify the __gppLocator iframe is created and hidden from AT
     expect(window.frames['__gppLocator']).toExist();
+    const gppLocator = document.querySelector('iframe[name="__gppLocator"]');
+    expect(gppLocator.getAttribute('aria-hidden')).toEqual('true');
+    expect(gppLocator.tabIndex).toEqual(-1);
 
     // Verify the ping command returns the expected stub payload
     let pingResponse;
